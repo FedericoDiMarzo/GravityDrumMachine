@@ -1,0 +1,67 @@
+<div class="alert-box animated fadeIn v-scrollable">
+    <span>Planet settings</span>
+
+    <div class="alert-box-horizontal alert-box-horizontal-form">
+        <label for="size-input">size:</label>
+        <input type="range" id="size-input" class="auto-update"
+               min="5" max="50" step="0.01">
+    </div>
+
+    <div class="alert-box-horizontal alert-box-horizontal-form">
+        <label for="note-input">note:</label>
+        <input type="text" id="note-input" class="auto-update">
+    </div>
+
+    <div class="alert-box-horizontal alert-box-horizontal-form">
+        <label for="gain-input">gain:</label>
+        <input type="range" min="0" max="1" step="0.01"
+               data-parameter="gain"
+               id="gain-input" class="auto-update">
+    </div>
+
+    <div class="alert-box-horizontal alert-box-horizontal-form">
+        <label for="delay-input">delay send:</label>
+        <input type="range" min="0" max="1" step="0.01"
+               data-parameter="delaySend"
+               id="delay-input" class="auto-update">
+    </div>
+
+    <div class="alert-box-horizontal alert-box-horizontal-form">
+        <label for="reverb-input">reverb send:</label>
+        <input type="range" min="0" max="1" step="0.01"
+               data-parameter="reverbSend"
+               id="reverb-input" class="auto-update">
+    </div>
+
+    <div class="alert-box-horizontal alert-box-horizontal-form">
+        <label for="shooting-style-select">shooting style:</label>
+        <select id="shooting-style-select" class="auto-update">
+            <option value="no-value">---</option>
+            <option value="coll-hard">coll-hard</option>
+            <option value="coll-soft">coll-soft</option>
+            <option value="hyperbole">hyperbole</option>
+            <option value="parabola">parabola</option>
+            <option value="ellipsis">ellipsis</option>
+            <option value="circular">circular</option>
+            <option value="free-fall">free-fall</option>
+        </select>
+    </div>
+
+    <div class="alert-box-horizontal alert-box-horizontal-form">
+        <label for="audio-module-select">audio module:</label>
+        <select id="audio-module-select">
+            <option value="sampler">Sampler</option>
+            <option value="monosynth">MonoSynth</option>
+        </select>
+    </div>
+
+    <div id="audio-module-container">
+
+    </div>
+
+    <div class="alert-box-horizontal">
+        <button class="btn-press btn-press-no">Close</button>
+    </div>
+
+
+</div>

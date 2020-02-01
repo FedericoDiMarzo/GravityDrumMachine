@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+
+    <meta charset="UTF-8">
+    <title>Gravity Drum Machine</title>
+</head>
+<body>
+
+<div id="external-container">
+
+    <!-- Will contain all alerts -->
+    <div id="alert-container"></div>
+
+
+    <!-- App View -->
+    <div id="app-container">
+
+        <!-- Sandwich Menu -->
+        <div class="sandwich-menu">
+            <div id="save-galaxy" class="sandwich-menu-item">Save Universe</div>
+            <div id="load-galaxy" class="sandwich-menu-item">Load Universe</div>
+            <div id="new-sequence" class="sandwich-menu-item">New Sequence</div>
+            <div id="delete-sequence" class="sandwich-menu-item">Delete Sequence</div>
+            <div id="fx-settings" class="sandwich-menu-item">Send Fx Settings</div>
+            <div id="motion-parameters-settings" class="sandwich-menu-item">Motion Parameters</div>
+        </div>
+
+        <div id="app-container-inner">
+            <!-- Top Segment -->
+            <div id="grid-view-container-top">
+                <h1 class="animated fadeInLeft fast">< Gravity Drum Machine ></h1>
+                <i class="nav-icon fi-align-left animated fadeIn slower"></i>
+
+            </div>
+
+            <!-- Grid Center Segment -->
+            <div id="grid-view-container-center">
+
+                <!-- Row Counter -->
+                <div class="row-counter animated fadeInLeft">
+                    <div class="row-counter-block"></div>
+                </div>
+
+                <!-- Drum Sequence -->
+                <div id="drum-sequence-container">
+                    <div id="drum-sequence-universes-container">
+                        <div class="drum-sequence-item"></div>
+                        <div class="drum-sequence-item"></div>
+                        <div class="drum-sequence-item"></div>
+                    </div>
+                    <div class="drum-sequence-signature">
+                        1/4
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Universe Center Segment -->
+            <canvas id="gravity-canvas" class="hidden"></canvas>
+            <i class="fi-arrow-left back-icon-universe animated fadeIn slower hidden"></i>
+            <i class="nav-icon nav-icon-universe fi-align-left animated fadeIn slower hidden"></i>
+
+
+            <!-- Bottom Segment -->
+            <div id="grid-view-container-bottom" class="grid-view-container-bottom-white">
+                <div id="galaxy-name-container" class="animated fadeInUp delay-1s">
+                    <span>-- -</span>
+                    <span id="galaxy-name">New Universe</span>
+                    <span>- --</span>
+                </div>
+
+                <!-- Bottom Segment Right -->
+                <div id="grid-view-container-bottom-right">
+                    <div class="bpm-container animated flipInX slow">
+                        <span>BPM:</span>
+                        <span class="bpm-value">120</span>
+                    </div>
+                    <i class="fi-play play-button animated fadeIn slow"></i>
+                    <i class="fi-stop stop-button animated fadeIn slow stop-button-active"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="main.js" type="module"></script>
+<script src="libraries/tone.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/evil-icons@1.9.0/assets/evil-icons.min.js"></script>
+</body>
+</html>
+
