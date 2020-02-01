@@ -12,10 +12,7 @@ import GridStateUpdater from "./state/GridStateUpdater.js";
 import BallController from "./controllers/BallController.js";
 import Controller from "./controllers/Controller.js";
 
-// http://0.0.0.0:8000/Documents/Universita%CC%80/Advanced%20Coding/project/gravity-drum-machine/federico.html
-// http://0.0.0.0:8000/Documents/Universita%CC%80/Advanced%20Coding/project/gravity-drum-machine/mokup.html
-
-
+// http://0.0.0.0:8000/Documents/Universita%CC%80/Advanced%20Coding/project/GravityDrumMachine/mokup.html
 
 // setting up the drumGrid //
 let sequenceList = [new DrumSequence()];
