@@ -8,11 +8,15 @@
 
 
 ## Introduction
-Linearity is not the most enjoyed parameterization when it comes to perception of sound. Complex is -somehow- a more enjoyed and natural behavior. Nevertheless, modern drum-machines don't explore beyond linear tempos that, if they stand *of course* as fundamental part of a musical piece, can also not be the only texture of rhythm in music. It is possible to superimpose over them different, more chaotic, rhythmic evolutions and exploring this and other concepts is the main purpose of this project. 
+Linearity is not the most enjoyed parameterization when it comes to perception of sound. *Complex* is -somehow- a more enjoyed and natural behavior. 
 
-Much automatization has been developed in the audio field with the possibility of following many different patterns. We anyway wandered more and thought about: what if we could develop a system that automates sound according to the laws of nature? 
+Even if moder drum-machines offer many different and inspiring tools devoted to rhythm, they seldom allow to explore sound generation in an *unpredictable* fashion.
+To create interesting and everchanging percussive textures, we think it could be particularly useful to superimpose different chaotic rhythmic elements, to simpler patterns.
 
-From this idea the gravity drum machine concept was born.
+The concept of unpredictability, has already been covered from hardware and software drum-machine manufactures in terms of conditional step triggering or geometrical pseudo randomization.
+Anyway, we wandered more and thought about: *what if we could develop a system that automates sound generation, according to the laws of nature?* 
+
+From these main ideas the gravity drum machine concept was born.
 
    <img src = "resources/images/galaxy.jpg" width = "600" >
 
@@ -39,7 +43,7 @@ From this idea the gravity drum machine concept was born.
     * There are two views in this drum machine, the first called **Galaxy view** which has a standard -*sequencer fashioned*- architecture. Inside the **Galaxy view** there will be one or more systems (*e.g. three for a 3/4 galaxy, one for every step of the sequence*), and all of them will be accessible via the **System view**. Inside the **System view** gravity motion happens. Systems get triggered, starting and ending their sounds and motions, by the **metronome**.
  
 * ### Limits and future features
-   Along with the physical impossibility of subdividing time under certain orders, the "**tone.js**" library we used does not support infinite time subdivision. Supporting polyrhythms leads to frequencies of the order from *pow(2,n)* to *pow(n,n)*, n being how many prime numbers are divisors of at least one denominator, which tone magnifies 127 times by the "**tone.js**" library object used to handle tempo. Frequencies can become very high especially when metric measure subdivisions (*i.e. denominator of metric signatures*) **are (or are divided by) lots of different prime numbers**, leading to very small time subdivisions and possible errors.   
+   Along with the physical impossibility of subdividing time under certain orders, the "**tone.js**" library we used does not support infinitely dense time subdivision. Supporting polyrhythms leads to frequencies of the order from *pow(2,n)* to *pow(n,n)*, n being how many prime numbers are divisors of at least one denominator, which tone magnifies 127 times by the "**tone.js**" library object used to handle tempo. Frequencies can become very high especially when metric measure subdivisions (*i.e. denominator of metric signatures*) **are (or are divided by) lots of different prime numbers**, leading to very small time subdivisions and possible errors.   
  
   Balls can now be created only with zero-velocity and will be able to generate only percussive sounds. However, we are currently focused on developing a way for the user to put non-zero initial velocity balls whith sub-options of orbiting or colliding in the systems, along with adding synth sounds, the possibility of automating according to ball motion, doppler-effect features and the possibility of filtering with orbiting filters.
   
@@ -191,22 +195,26 @@ Scalability was one of our main concern during development; we aimed for gradual
 
 To pursue this intention, we arranged our code in a MVC fashion, exploiting many useful tools and scheme proper of web apps.
 
-Our **view** is defined in many html pages, that can be composed in a modular way, allowing us to create a single isolated file for every component of the product.   
-The graphical style has been enhanced with css style file.
+Our **view** is defined in many *html* pages, that can be composed in a modular way, allowing us to create a single isolated file for every component of the product.   
+The graphical style has been enhanced with css style files.
 
 The **model** comprises many javascript modules, each one containing information about physical properties, or audio parameters.
 
 All the logic in the application, that connects the user interaction in the view, with model updating, is delegated to two *controller* modules.
-To allow an automatic update of model properties, most html input tags have an *auto-update* class, used in the controller to send input's value to a model class, that updates indipendetly.
-This design choice offers a clean and easy way to add functionality to the application, without worrying about updating the controller code every time.  
+To allow an automatic update of model properties, most html input tags have an *auto-update* class, used inside the controller to send input's values to a model object, that updates independently.
+This design choice offers a clean and easy way to add functionality to the application, without worrying about updating the controller's code every time.  
 
 * #### Graphical rendering
 The drum machine was designed to be fun to interact with and graphically appealing; to support these principles, we needed as much freedom as an web environment could offer.
-We used an html canvas component to draw our evolving universes in and all the rendering process is delegated to the **GraphicRenderer** class.
+We used an **html canvas** component to draw our evolving universes, all the rendering process is delegated to the **GraphicRenderer** class.
 
-This class takes all the information needed for showing the evolution of the universe directly from the model. The rendering is completely independent from the rate at which the model is updated.
+This class takes all the information needed for showing the evolution of the universe, directly from the model. The rendering is completely independent from the rate at which the model is updated.
  
-The standard *window.requestAnimationFrame* function is used to exploit GPU acceleration, allowing for smooth animations, even on high CPU load.   
+The standard **window.requestAnimationFrame** function is used to exploit GPU acceleration, allowing for smooth animations, even on high CPU load.   
+
+* #### Physical modeling
+Our project, started from a physical modeling of **roba sulla modellazione fisica**.
+We hand-coded all the logic behind the simulation, without using external libraries, because we felt the need to design our model, over our very specific needs, allowing for a better integration and performance optimization.  
 
 
 ## Authors' notes

@@ -91,6 +91,7 @@ class Screenshot {
             // ball.isFixed = b.isFixed;
             // ball.isSolid = b.isSolid;
             // ball.isMuted = b.isMuted;
+            ball.isFree = b.isFree;
             ball.isStepTriggered = b.isStepTriggered;
             ball.soundModule = this.getSoundModule(b.soundModule);
             balls.push(ball);

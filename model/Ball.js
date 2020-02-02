@@ -152,6 +152,7 @@ class Ball {
             isFixed: this.isFixed,
             isSolid: this.isSolid,
             isMuted: this.isMuted,
+            isFree: this.isFree,
             isStepTriggered: this.isStepTriggered
         };
 
