@@ -1,6 +1,9 @@
 import MathTools from "./MathTools.js";
 import PhysicsConstants from "../utility/PhysicsCostants.js";
 
+/**
+ * TODO: change Physicsconstants.g to a multiplicative factor (aesthetic)
+ */
 
 let BallCannon = {
     shootBall: function (ball, gravityBall, type) {
@@ -11,19 +14,20 @@ let BallCannon = {
             //radial coordinates
             absr: getRadius(ball),
             phi: Math.atan2(-1 * ball.y, ball.x),
+            //Potential constant
+            potentialConstant: ball.getMass() * gravityBall.getMass() / PhysicsConstants.g ,
             //Potential energy
-            potentialConstant: PhysicsConstants.g * ball.getMass() * gravityBall.getMass(),
             potentialEnergy: getPotentialEnergy(ball, gravityBall),
             //Kinetic energy < kinMaxClosed --> collision, elliptical or circular motions; = hyperbolic motion; > parabolic
             kinMaxClosedTraj: -1 * getPotentialEnergy(ball, gravityBall),
             // v < absVMax for circular, elliptic and soft collisions
             absVMax: Math.sqrt(-2 * getPotentialEnergy(ball, gravityBall) / ball.getMass()),
             //inside [-theta, theta] range all vectors starting fom this point to gravity ball
-            theta: Math.atan2(-1 * gravityBall.size, getRadius(ball)),
-            //Circular total energy eCirc = u + kinEnergy, minimum energy value for closed orbits
-            eCirc: getCircularEnergy(ball, gravityBall),
+            theta: Math.atan2(gravityBall.size, MathTools.module([getRadius(ball), ball.size])),
             //intensity parameter for future development, now set being 0 at maxR and increasing getting close to gravity ball
             intensity: 1 - getRadius(ball) / getMaxRadius(),
+            //computational parameter
+            vScale: 7e-6,
         };
 
         BallCannon.shootType[type](ball, gravityBall, vars);
@@ -34,7 +38,9 @@ let BallCannon = {
         "coll-soft": collSoft,
         "hyperbole": hyperbole,
         "parabola": parabola,
-        "ellipsis": ellipsis
+        "ellipsis": ellipsis,
+        "circular": circular,
+        "free-fall": freeFall
     }
 };
 
@@ -42,188 +48,168 @@ let BallCannon = {
  * basic variables tools
  */
 
-
+//Potential energy
 function getPotentialEnergy(ball, gravityBall){
-   return -1 * (PhysicsConstants.g * ball.getMass() * gravityBall.getMass()) / MathTools.module([ball.x, ball.y]);
+   return -1 * (ball.getMass() * gravityBall.getMass()) / (PhysicsConstants.g * MathTools.module([ball.x, ball.y]));
 }
 
-function getCircularEnergy(ball, gravityBall){
-    return getPotentialEnergy(ball, gravityBall) / 2;
-}
-
+//Distance from gravity ball
 function getRadius(ball){
     return MathTools.module([ball.x, ball.y]);
 }
 
+//canvas diagonal /2
 function getMaxRadius(){
     return MathTools.module([document.getElementById("gravity-canvas").width,
         document.getElementById("gravity-canvas").height]) / 2;
 }
 
-function setVelocity(ball, vpol, vars){
-    let vret = [vpol[0] * Math.cos(vars.phi) + vpol[1] * Math.sin(vars.phi), vpol[1] * Math.cos(vars.phi) - vpol[0] * Math.sin(vars.phi)];
-    ball.initVx = 1e3 * vret[0];
-    ball.initVy = 1e3 * vret[1];
-    ball.vx = 1e3 * vret[0];
-    ball.vy = 1e3 * vret[1];
+// Sets desired velocity, check correction parameter
+function setVelocity(ball, vpol, vars, check){
+    let vret = [vpol[0] * Math.cos(vars.phi) + vpol[1] * Math.sin(vars.phi),
+                vpol[1] * Math.cos(vars.phi) - vpol[0] * Math.sin(vars.phi)];
+    ball.initVx = vars.vScale * vret[0];
+    ball.initVy = vars.vScale * vret[1];
+    if(check){
+        ball.initVx *= 10;
+        ball.initVy *= 10;
+    }
+    ball.vx = ball.initVx;
+    ball.vy = ball.initVy;
 }
 
+//Frees ball from friction
 function freeBall(ball){
     ball.isFree = true;
+}
+
+//Let the ball be subject to friction
+function frictionBall(ball){
+    ball.isFree = false;
+}
+
+//Angle tool to avoid collisions
+function randAngle(theta, rnd, ball){
+    let angle = theta;
+    if((ball.x < 0 && ball.y<0) || !(ball.x < 0 && ball.y<0)){
+        angle *= -1;
+        angle -= rnd;
+    }
+    else{
+        angle += rnd;
+    }
+    return angle;
 }
 
 /**Handling desired motions**/
 //collision cases --> damped
 //Hard case
 function collHard(ball, gravityBall, vars) {
+    //ball is again subject to friction
+    frictionBall(ball);
     //exponential growth with intensity
-    let absv = Math.pow(Math.sqrt(vars.absVMax), vars.intensity * 3);
+    //computes module of velocity
+    let absv = vars.intensity * 0.99 * Math.sqrt(-2 * vars.potentialEnergy / ball.getMass());
     //random angle between -theta and theta
     let rand = Math.random() * 11;
     let inv = [1, -1];
-    let angle = (((Math.random() * 2)<1) ? inv[0] : inv[1]) * vars.theta * rand / 10;
+    let angle = (((Math.random() * 2)<1) ? inv[0] : inv[1]) * vars.theta * (1 - 1 / 10) * rand / 10;
     //velocity in polar frame
     //sure collision having velocity angle with respect to radius between [-theta : theta] range
     let vpol = [-1 * absv * Math.cos(angle), -1 * absv * Math.sin(angle)];
 
     //going back in x-y frame
-    setVelocity(ball, vpol, vars);
+    setVelocity(ball, vpol, vars, true);
 }
 
 //soft case
 function collSoft(ball, gravityBall, vars) {
-    let kinEnergy = vars.eCirc - vars.potentialEnergy;
+    //ball is again subject to friction
+    frictionBall(ball);
+    //computes kinetic energy
+    let kinEnergy = vars.potentialEnergy / 2 - vars.potentialEnergy; //a.k.a. -vars.potentialEnergy / 2
     //linear growth
     let absv = vars.intensity * 0.99 * Math.sqrt(2 * kinEnergy / ball.getMass());
     //wide angle
     let gamma = (Math.PI * (Math.random() * 1000)) / 1000 - Math.PI / 2;
+    //velocity in polar frame
     let vpol = [-1 * absv * Math.cos(gamma), -1 * absv * Math.sin(gamma)];
 
     //back to x-y frame
-    setVelocity(ball, vpol, vars);
+    setVelocity(ball, vpol, vars, true);
 }
 
-//gravity motion cases
+//gravity motion cases --> NOT damped
 function hyperbole(ball, gravityBall, vars) {
+    //frees from friction
     freeBall(ball);
-    let vpol = [vars.absVMax * (1 + vars.intensity / 2) * Math.cos(vars.theta + Math.PI / 16),
-        vars.absVMax * (1 + vars.intensity / 2) * Math.sin(vars.theta + Math.PI / 16)];
-
+    //handling angle
+    let angle = randAngle(vars.theta, Math.PI / 8, ball);
+    //velocity in polar frame
+    let vpol = [-1 * vars.absVMax  * Math.cos(angle),
+       -1 * vars.absVMax  * Math.sin(angle)];
     //back to x-y frame
-    setVelocity(ball, vpol, vars);
+    setVelocity(ball, vpol, vars, true);
 }
 
 function parabola(ball, gravityBall, vars) {
+    //frees from friction
+    freeBall(ball);
+    //handling angle
+    let angle = randAngle(vars.theta, Math.PI / 6 * Math.random() + Math.PI / 32, ball);
+    //velocity in polar frame
+    let vpol = [-1 * vars.absVMax * (1 + vars.intensity / 5) * Math.cos(angle),
+        -1 * vars.absVMax * (1 + vars.intensity / 5) * Math.sin(angle)];
 
+    //back to x-y frame
+    setVelocity(ball, vpol, vars, true);
 }
 
 function ellipsis(ball, gravityBall, vars) {
+    //avoiding collisions if choosing ellipsis being too close to gravity ball
+    if(vars.absr >= 192) {
+        //frees from friction
+        freeBall(ball);
+        //handling angle
+        let inv = [1, -1];
+        //random clockwise/counter-clockwise motion
+        let gamma = (((Math.random() * 2) < 1) ? inv[0] : inv[1]) * Math.PI / 2;
+        //computes module of velocity
+        let absv = Math.sqrt(2 * (vars.intensity / 3 + 2 / 3) * vars.kinMaxClosedTraj * vars.absr / (gravityBall.size * ball.getMass()));
+        //velocity in polar frame
+        let vpol = [-1 * absv * Math.cos(gamma), -1 * absv * Math.sin(gamma)];
 
+        //back to x-y frame
+        setVelocity(ball, vpol, vars, false);
+    }
+    //too close motions decades in circular
+    else{
+        circular(ball, gravityBall, vars);
+    }
 }
 
+function circular(ball, gravityBall, vars){
+    //frees from friction
+    freeBall(ball);
+    //computes energy
+    let kinEnergy = -1 * vars.potentialEnergy / 2;
+    //computes module of velocity
+    let absv = 3.5 * Math.sqrt(2 * kinEnergy / ball.getMass());
+    //random clockwise/counter-clockwise motion
+    let inv = [1, -1];
+    let gamma = (((Math.random() * 2)<1) ? inv[0] : inv[1]) * Math.PI / 2;
+    //velocity in polar frame
+    let vpol = [-1 * absv * Math.cos(gamma), -1 * absv * Math.sin(gamma)];
 
+    //back to x-y frame
+    setVelocity(ball, vpol, vars, false);
+}
 
-/**
- * Sets trajectory
- * TODO: test
- * @param graveLer gravity center
- * @param str desired trajectory
- * @param intensity parameter between 0 and 1
-
-function setPeculiarVelocity(graveLer, str, intensity) {
-
-
-    // let shootingStyle = {
-    //     "chiave": sparaN1
-    // };
-    //
-    // shootingStyle[type]();
-
-    if (!graveLer.isFixed)
-        return;
-    let r = [this.x - graveLer.x, this.y - graveLer.y];
-    // radial coordinates absr and phi
-    let absr = MathTools.module(r);
-    let phi = Math.atan2(-r[1], r[0]);
-    let k = 6.67e8 * this.getMass() * graveLer.getMass();
-    //potential energy
-    let u = -k / absr;
-    //maximum kinetic energy in order to have closed trajectory
-    let kinMaxClosedTraj = -u;
-    // v <= absVMax for circular and elliptic
-    let absVMax = Math.sqrt(2 * kinMaxClosedTraj / this.getMass());
-    //inside [-theta, theta] range all vectors starting fom this point to gravity ball
-    let theta = Math.atan2(-1 * graveLer.size, absr);
-    //Circular total energy eCirc = u + kinEnergy, minimum energy value for closed orbits
-    let eCirc = -k / (2 * absr);
-
-    //collision case
-    //hard case: exponential velocity, pointed in [-theta, theta] range from gravity center
-    //algorithm can be used with any absv >= 0 parameter
-    if (str === "coll-hard") {
-
-        //exponential growth with intensity
-        let absv = Math.pow(Math.sqrt(absVMax), intensity * 3);
-        //random angle between -theta and theta
-        let rand = Math.random() % 11;
-        let inv = [1, -1];
-        theta = inv[Math.random() % 2] * theta * rand / 10;
-        //velocity in polar frame
-        //sure collision having velocity angle with respect to radius between [-theta : theta] range
-        let vpol = [absv * Math.cos(theta), absv * Math.sin(theta)];
-
-        //going back in x-y frame
-        vpol = MathTools.changeFrame(vpol, phi);
-        this.vx = vpol[0];
-        this.vy = vpol[1];
-    }
-    //soft case: linear velocity, wide angle
-    else if (str === "coll-soft") {
-        let kinEnergy = eCirc - u;
-        //linear growth
-        let absv = intensity * 0.99 * Math.sqrt(2 * kinEnergy / this.getMass());
-        //wide angle
-        let gamma = Math.PI * (Math.random() % 1001) / 1000 - Math.PI / 2;
-        let vpol = [absv * Math.cos(gamma), absv * Math.sin(gamma)];
-
-        //back to x-y frame
-        vpol = MathTools.changeFrame(vpol, phi);
-
-        this.vx = vpol[0];
-        this.vy = vpol[1];
-
-    }
-    //gravity motion case
-    else {
-        //removing friction
-        this.isFree = true;
-        let vpol = [0, 0];
-        //handling cases
-        if (str === "hyp") {
-            vpol = [absVMax * (1 + intensity / 2) * Math.cos(theta + Math.PI / 16),
-                absVMax * (1 + intensity / 2) * Math.sin(theta + Math.PI / 16)];
-        } else if (str === "par") {
-            vpol = [0, absVMax]
-        } else if (str === "ell") {
-            intensity *= 0.99;
-            let gamma = theta + (Math.PI / 2 - theta) * (Math.random() % 1001) / 1000 - Math.PI / 2;
-            //explores different elliptic trajectories according to intensity; intensity = 0 circular trajectory
-            let kinEnergy = eCirc - u * (1 + intensity);
-            let absv = Math.sqrt(2 * kinEnergy / this.getMass());
-            vpol = [absv * Math.cos(gamma), absv * Math.sin(gamma)];
-        } else {
-            //default circular
-            let kinEnergy = eCirc - u;
-            let absv = Math.sqrt(2 * kinEnergy / this.getMass());
-            vpol = [0, absv];
-        }
-
-        //back to x-y frame
-        vpol = MathTools.changeFrame(vpol, phi);
-
-        this.vx = vpol[0];
-        this.vy = vpol[1];
-    }
-}*/
+function freeFall(ball, gravityBall, vars){
+    //ball is again subject to friction
+    frictionBall(ball);
+    //sets velocity
+    setVelocity(ball, [0, 0], vars);
+}
 
 export default BallCannon;
