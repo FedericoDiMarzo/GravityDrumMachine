@@ -14,7 +14,7 @@ Much automatization has been developed in the audio field with the possibility o
 
 From this idea the gravity drum machine concept was born.
 
-   <img src = "images/galaxy.jpg" width = "600" >
+   <img src = "resources/images/galaxy.jpg" width = "600" >
 
 * ### Main features
  
@@ -49,7 +49,7 @@ From this idea the gravity drum machine concept was born.
 
 <figure>
   <figcaption>-->Figure 1: New project<-- </figcaption>
-  <img src = "images/gdm.PNG" width = "600" >
+  <img src = "resources/images/gdm.PNG" width = "600" >
 </figure>
 
 When loaded the software will display a black screen in which the universe will be composed of a single **galaxy** associated with a 1/4 signature. Therefore the newborn universe will be started containing one single galaxy which will herself contain one single system, this represented by the single green-margined central square shown in the center of Figure 1. We will call in this text what is shown in Figure 1 and 2 "***Galaxy view***" to distinguish it from the "***System view***", which usage will become clear later in this overview.
@@ -60,7 +60,7 @@ Under that icon we find the rhythmic metric associated with the newborn **galaxy
 
 <figure>
   <figcaption>-->Figure 2: 3/4 galaxy<-- </figcaption>
-  <img src = "images/3_4.PNG" width = "600" >
+  <img src = "resources/images/3_4.PNG" width = "600" >
 </figure>
 
 Moving towards the bottom right corner we find **play** and **stop** buttons, which can be toggled also by pressing the **spacebar**. **BPMs** are located left of them; a pop-up will spawn when clicking  giving the possibility of changing them. On the bottom right we find the **galaxy name**, which can be reset by clicking on it and typing the desired name in the pop-up that will appear.
@@ -73,7 +73,7 @@ We have so covered the **galaxy view** and move now forward towards the **system
 
 <figure>
   <figcaption>-->Figure 3: System view<-- </figcaption>
-  <img src = "images/empty.PNG" width = "600" >
+  <img src = "resources/images/empty.PNG" width = "600" >
 </figure>
 
 Clicking on one of the systems the user will be projected into the **system view** which will appear populated initially only by the central gravity ball.
@@ -86,21 +86,21 @@ Right clicking on a ball generates a pop-up menu which gives, among the other op
 
 <figure>
   <figcaption>-->Figure 4: Adding balls<-- </figcaption>
-  <img src = "images/niceballs.PNG" width = "600" >
+  <img src = "resources/images/niceballs.PNG" width = "600" >
 </figure>
 
 You are now **Up&Going**! Open your software, set your rhythmic signature, place balls inside the system and hit play to watch them sound as the galaxy evolves, or enjoy a more broad view stepping in the galaxy. Have fun! 
 
 <figure>
   <figcaption>-->Figure 5: Muted gravity ball<-- </figcaption>
-  <img src = "images/muted.PNG" width = "600" >
+  <img src = "resources/images/muted.PNG" width = "600" >
 </figure>
 
 ## Advanced usage
 
 <figure>
   <figcaption>-->Figure 6: Menu<-- </figcaption>
-  <img src = "images/menu.PNG" width = "600" >
+  <img src = "resources/images/menu.PNG" width = "600" >
 </figure>
 
 We until now have understood how to initiate and make a single galaxy sound. Now we will focus on a deeper usage.
@@ -110,7 +110,7 @@ We already talked about the possibility of simulating more than one galaxy in or
 
 <figure>
   <figcaption>-->Figure 7: 3/4 galaxy in a 3/4:5/8 universe<-- </figcaption>
-  <img src = "images/3_4_2.PNG" width = "600" >
+  <img src = "resources/images/3_4_2.PNG" width = "600" >
 </figure>
 
 To create a new galaxy we have to click on "***New Sequence***" from the menu (Fig.6). This will generate an entire new galaxy, superimposed  with the previous one. You will see the white bar in the middle left now having the possibility of moving through 2 different states, indexing the two currently existing galaxies. every time we want to create a galaxy we have to iterate the process. States will increase by 1 every time a new galaxy gets created in the universe. 
@@ -119,7 +119,7 @@ To remove a galaxy scroll to it and click "***Delete Sequence***" from the menu.
 
 <figure>
   <figcaption>-->Figure 1: 5/8 galaxy in a 3/4:5/8 universe<-- </figcaption>
-  <img src = "images/5_8.PNG" width = "600" >
+  <img src = "resources/images/5_8.PNG" width = "600" >
 </figure>
 
 Hitting up and down arrow will scroll through the index, currispondent galaxy showing on the screen. 
@@ -181,6 +181,32 @@ Everything here works under rigorous physical laws. For a deeper understanding o
    Velocity doesn't tend to zero in this case.
    
 ## Code architecture
+Our **Gravity Drum Machine** has been developed as a dynamic web application, based on the *Web Audio API*.
+The application is delivered to the user from the server as an index html page, connected to many styles and javascript modules.
+
+In this section the code architecture is depicted broadly, to introduce the main interrelated components that form the final product.
+
+* #### MVC structure
+Scalability was one of our main concern during development; we aimed for gradually add new components and options to our drum machine, avoiding unnecessary complexity in the code structure.
+
+To pursue this intention, we arranged our code in a MVC fashion, exploiting many useful tools and scheme proper of web apps.
+
+Our **view** is defined in many html pages, that can be composed in a modular way, allowing us to create a single isolated file for every component of the product.   
+The graphical style has been enhanced with css style file.
+
+The **model** comprises many javascript modules, each one containing information about physical properties, or audio parameters.
+
+All the logic in the application, that connects the user interaction in the view, with model updating, is delegated to two *controller* modules.
+To allow an automatic update of model properties, most html input tags have an *auto-update* class, used in the controller to send input's value to a model class, that updates indipendetly.
+This design choice offers a clean and easy way to add functionality to the application, without worrying about updating the controller code every time.  
+
+* #### Graphical rendering
+The drum machine was designed to be fun to interact with and graphically appealing; to support these principles, we needed as much freedom as an web environment could offer.
+We used an html canvas component to draw our evolving universes in and all the rendering process is delegated to the **GraphicRenderer** class.
+
+This class takes all the information needed for showing the evolution of the universe directly from the model. The rendering is completely independent from the rate at which the model is updated.
+ 
+The standard *window.requestAnimationFrame* function is used to exploit GPU acceleration, allowing for smooth animations, even on high CPU load.   
 
 
 ## Authors' notes
