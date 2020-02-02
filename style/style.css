@@ -350,6 +350,8 @@ input {
     flex-grow: 2;
     font-family: 'PT Sans', sans-serif;
     font-size: 1.2rem;
+
+    overflow-x: auto;
 }
 
 #drum-sequence-universes-container {
@@ -368,6 +370,7 @@ input {
     width: 150px;
     border-radius: 25px;
     overflow: hidden;
+    margin-left: 25px;
     border: var(--sequence-item-border-size) hidden var(--sequence-item-color);
 }
 
@@ -376,6 +379,7 @@ input {
 }
 
 .drum-sequence-signature {
+    margin-left: 35px;
     letter-spacing: 6px;
 }
 
