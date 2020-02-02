@@ -214,12 +214,17 @@ The standard **window.requestAnimationFrame** function is used to exploit GPU ac
 
 * #### Physical modeling
 Our project, started from a physical modeling of **roba sulla modellazione fisica**.
-We hand-coded all the logic behind the simulation, without using external libraries, because we felt the need to design our model, over our very specific needs, allowing for a better integration and performance optimization.  
 
+We hand-coded all the logic behind the simulation, without using external libraries, because we felt the need to design our model, over our very specific needs, allowing for a **better integration** and **performance optimization**.  
+
+* #### Time events handling
+Aside from the GraphicRenderer, many other components needed some mechanism to handle regular time updates.
+ 
+Every drum-machine is based on the concept of rhythmic step triggering; some kind of clock system is used in order to realize this 
 
 ## Authors' notes
 
-This project started as an examination and ended up in something we will further develop and expand; having it we believe an undercover potential much bigger than what this first version is exploiting, and being a perfect playground for sound/gravity-motion experiments. 
+This project started as an examination and ended up in something we will further develop and expand; we believe its potential could be much bigger than this first version is exploiting, and being a perfect playground for sound/gravity-motion experiments. 
 
 *Jacopo Piccirillo*
 
