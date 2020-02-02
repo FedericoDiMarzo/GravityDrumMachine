@@ -202,7 +202,7 @@ input {
 }
 
 .alert-box:first-child {
-    margin-top: 35px;
+
 }
 
 .alert-box:last-child {
@@ -223,6 +223,10 @@ input {
 
 .alert-box input {
     text-align: center;
+}
+
+.alert-box button {
+    margin: 0 8px
 }
 
 .alert-box label {
