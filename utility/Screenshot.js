@@ -79,11 +79,11 @@ class Screenshot {
         let balls = [];
         obj.balls.forEach(b => {
             let ball = new Ball(
-                b.initX,
-                b.initY,
-                b.initVx,
-                b.initVy,
-                b.size,
+                parseFloat(b.initX),
+                parseFloat(b.initY),
+                parseFloat(b.initVx),
+                parseFloat(b.initVy),
+                parseFloat(b.size),
                 b.color
             );
 
@@ -98,9 +98,9 @@ class Screenshot {
 
         // gCenter
         let gCenter = new GravityBall(
-            obj.gCenter.initX,
-            obj.gCenter.initY,
-            obj.gCenter.size,
+            parseFloat(obj.gCenter.initX),
+            parseFloat(obj.gCenter.initY),
+            parseFloat(obj.gCenter.size),
         );
         gCenter.isMuted = obj.gCenter.isMuted;
         gCenter.note = obj.gCenter.note;

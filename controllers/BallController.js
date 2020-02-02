@@ -349,7 +349,7 @@ class BallController {
         let shootingStyle = autoUpdatableFields.filter(nodeFilter("shooting-style-select"))[0].value;
 
 
-        this.editedBall.size = size;
+        this.editedBall.size = parseFloat(size);
         this.editedBall.note = note;
         // this.editedBall.soundModule.setGain(parseFloat(gain));
         // this.editedBall.soundModule.setDelaySend(parseFloat(delay));
