@@ -207,7 +207,7 @@ class Screenshot {
      * @return {{g: *, friction: *}}
      */
     getPhysicConstants(obj) {
-        return {
+        return {//TODO: remove comment
             g: obj[1].g,
             friction: obj[1].friction
         }
