@@ -217,10 +217,58 @@ Our project, started from a physical modeling of **roba sulla modellazione fisic
 
 We hand-coded all the logic behind the simulation, without using external libraries, because we felt the need to design our model, over our very specific needs, allowing for a **better integration** and **performance optimization**.  
 
-* #### Time events handling
-Aside from the GraphicRenderer, many other components needed some mechanism to handle regular time updates.
+* #### Step sequencing
+Aside from the *GraphicRenderer*, many other components needed some mechanism to handle regular time updates.
+To accomplish the task, we developed the class **Metronome**, that internally uses the component **Tone.Transport** (*a Tone.js component*) and a custom **event handling system**.
  
-Every drum-machine is based on the concept of rhythmic step triggering; some kind of clock system is used in order to realize this 
+Every drum-machine is based on the concept of rhythmic **step triggering**; some kind of *clock system* is used in order to synchronize the sequencing correctly.
+For our *Gravity Drum Machine* we took advantage of the cleaver design of the utility *Tone.Transport*, to implement a polyrhythmic step sequencer.
+
+*Tone.Transport* contains an event handling system based on a single *time signature* and *bpm*. 
+In order to allow this component to fire step events, considering the possible presence of polyrhythms, our *Metronome* class performs a computation of a common *time signature* in a recursive fashion:
+
+N3/D3 = mcm(N1xK1, N2xK2)/mcm(N1, N2)
+
+K1 = mcm(N1, N2) / D1
+
+K2 = mcm(N1, N2) / D2
+
+where N1/D1 and N2/D2 are two different time divisions, N3/D3 is the new subdivision to be compared to the next one.
+
+The resulting quarter note (*ie. "8n" in Tone.js wording*), is now the **tatum** of the step sequencer.
+For every independent sequence than, the *Metronome* calculate a multiplier *Mi*, that indicates the number of *tatum* needed to continue to the next step.
+
+Mi = D / Di
+
+* #### State update
+The **state evolution** of the model, is performed through the class **GridStateUpdater**. 
+The metronome fires a *state update* event every *5ms*, calling a method inside *GridStateUpdater*, that updates the model according to the physical simulation.
+
+Before every cycle, collisions checks between orbiting balls and the gravity center are performed, triggering a ball's *sound module* in case of impact.
+
+* #### Save and loading
+The application offers the possibility to *save* the current universe's configuration locally in a file with a *.galaxy* extension. 
+These files can be *loaded* later, allowing the users to recall a previous state for further editing, or just to enjoy again their complex creations.
+
+All the process is handled by the **Screenshot** module. 
+Every model's class, has a method to perform a *deep copy* of the object; this method is used by the *Screenshot* module to create a JSON file, that can be downloaded by the user.  
+This file, is used in the loading phase, to reconstruct all the objects that compose the model.
+
+The *Screenshot* module, is also used to perform a **copy/paste** operation between galaxies.
+   
+* #### Sound modules
+We choose to use **Tone.js** to develop all the audio features of our application.
+In order to adapt the library to our codebase, we designed the interface **SoundModule**.
+Through this interface, we handled the problem of maintaining all the references between the connections of all the *audio nodes*.
+
+Every *SoundModule* is associated with a ball, and it's directly connected to the *master output*.
+In addiction each of them, is also connected with an **fx-bus**, that contains a *delay* and a *reverb* module through two gain nodes (acting as a send gain).
+  
+<figure>
+  <img src = "resources/images/SoundModuleDiagram.png"  >
+  <figcaption>-->Figure 1: 5/8 galaxy in a 3/4:5/8 universe<-- </figcaption>
+</figure>
+
 
 ## Authors' notes
 
