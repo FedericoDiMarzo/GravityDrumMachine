@@ -412,7 +412,12 @@ class BallController {
      */
     fillSampleList(sampleInput) {
 
-        fetch("./resources/samples")
+        // TODO: that's a github pages quick fix
+
+        // let url = "./resources/samples";
+        let url = "./resources/github_pages_fix.html";
+
+        fetch(url)
             .then(response => {
                 return response.text();
             })
