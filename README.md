@@ -169,7 +169,7 @@ To create a new galaxy we have to click on "***New Sequence***" from the menu (F
 To remove a galaxy scroll to it and click "***Delete Sequence***" from the menu.
 
 <figure>
-  <figcaption>-->Figure 1: 5/8 galaxy in a 3/4:5/8 universe<-- </figcaption>
+  <figcaption>-->Figure 8: 5/8 galaxy in a 3/4:5/8 universe<-- </figcaption>
   <img src = "resources/images/5_8.PNG" width = "600" >
 </figure>
 
@@ -389,7 +389,7 @@ In addiction each of them, is also connected with an **fx-bus**, that contains a
   
 <figure>
   <img src = "resources/images/SoundModuleDiagram.png"  >
-  <figcaption>-->Figure 1: 5/8 galaxy in a 3/4:5/8 universe<-- </figcaption>
+  <figcaption>-->Figure 9: 5/8 galaxy in a 3/4:5/8 universe<-- </figcaption>
 </figure>
 
 
