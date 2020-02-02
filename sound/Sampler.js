@@ -79,7 +79,7 @@ class Sampler extends SoundModule {
             sample: this.sample,
             release: this.release,
             randomize: this.randomize,
-            dynamicPitch: this.dynamicPitchOn
+            dynamicPitchOn: this.dynamicPitchOn
         };
     }
 }
