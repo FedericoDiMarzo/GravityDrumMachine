@@ -56,7 +56,7 @@ class Sampler extends SoundModule {
         super.setParameters(parameters);
         this.setSample(parameters.sample);
         this.randomize = parameters.randomize;
-        this.release = parameters.release;
+        this.release = parseFloat(parameters.release);
         this.dynamicPitchOn = parameters.dynamicPitchOn;
 
     }
@@ -77,8 +77,8 @@ class Sampler extends SoundModule {
             ...copy,
             type: "sampler",
             sample: this.sample,
-            release: parseFloat(this.release),
-            randomize: parseFloat(this.randomize),
+            release: this.release,
+            randomize: this.randomize,
             dynamicPitch: this.dynamicPitchOn
         };
     }
