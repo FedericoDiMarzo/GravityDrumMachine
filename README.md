@@ -336,7 +336,7 @@ This class takes all the information needed for showing the evolution of the uni
 The standard **window.requestAnimationFrame** function is used to exploit GPU acceleration, allowing for smooth animations, even on high CPU load.   
 
 * #### Physical modeling
-Our project, started from a physical modeling of **roba sulla modellazione fisica**.
+Our project, started from a physical modeling of **gravity motion**, to which we added the possibility of **frictional forces**.
 
 We hand-coded all the logic behind the simulation, without using external libraries, because we felt the need to design our model, over our very specific needs, allowing for a **better integration** and **performance optimization**.  
 
@@ -345,7 +345,7 @@ Aside from the *GraphicRenderer*, many other components needed some mechanism to
 To accomplish the task, we developed the class **Metronome**, that internally uses the component **Tone.Transport** (*a Tone.js component*) and a custom **event handling system**.
  
 Every drum-machine is based on the concept of rhythmic **step triggering**; some kind of *clock system* is used in order to synchronize the sequencing correctly.
-For our *Gravity Drum Machine* we took advantage of the cleaver design of the utility *Tone.Transport*, to implement a polyrhythmic step sequencer.
+For our *Gravity Drum Machine* we took advantage of the clever design of the utility *Tone.Transport*, to implement a polyrhythmic step sequencer.
 
 *Tone.Transport* contains an event handling system based on a single *time signature* and *bpm*. 
 In order to allow this component to fire step events, considering the possible presence of polyrhythms, our *Metronome* class performs a computation of a common *time signature* in a recursive fashion:
