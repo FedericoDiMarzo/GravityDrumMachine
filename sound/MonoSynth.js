@@ -20,6 +20,7 @@ class MonoSynth extends SoundModule {
         this.filterEnvAmount = 2.5;
         this.filterCutoff = 100;
         this.detune = 40;
+        this.dynamicFilterOn = false;
         this.module.envelope.sustain = 0;
         this.module.filterEnvelope.sustain = 0;
         this.module.volume.value = -6;
@@ -54,11 +55,17 @@ class MonoSynth extends SoundModule {
         this.filterEnvAmount = parseFloat(parameters.filterEnvAmount);
         this.filterCutoff = parseFloat(parameters.filterCutoff);
         this.detune = parseFloat(parameters.detune);
+        this.dynamicFilterOn = parameters.dynamicFilterOn;
         this.updateSynthSettings();
     }
 
     update(distance, initDistance, angle) {
+        if (!this.dynamicFilterOn) {
+            return;
+        }
 
+        let val = distance / initDistance * 1000;
+        this.module.filter.frequency.value = val;
     }
 
     exportCopy() {
@@ -72,7 +79,8 @@ class MonoSynth extends SoundModule {
             filterRelease: this.filterRelease,
             filterCutoff: this.filterCutoff,
             filterEnvAmount: this.filterEnvAmount,
-            detune: this.detune
+            detune: this.detune,
+            dynamicFilterOn: this.dynamicFilterOn
         };
     }
 }

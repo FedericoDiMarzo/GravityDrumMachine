@@ -191,7 +191,7 @@ input {
     border: 3px solid var(--alert-border-color);
     background-color: var(--content-color);
     padding: 35px;
-    justify-content: space-evenly;
+    /*justify-content: space-evenly;*/
     font-size: 1.1rem;
     box-shadow: 0 34px 68px -16px rgba(0, 0, 0, 0.35);
     max-height: 80%;
