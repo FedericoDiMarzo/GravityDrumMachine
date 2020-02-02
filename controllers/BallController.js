@@ -412,7 +412,7 @@ class BallController {
      */
     fillSampleList(sampleInput) {
 
-        fetch("resources/samples")
+        fetch("./resources/samples")
             .then(response => {
                 return response.text();
             })
