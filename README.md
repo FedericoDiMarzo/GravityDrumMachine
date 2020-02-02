@@ -10,7 +10,7 @@
 ## Introduction
 Linearity is not the most enjoyed parameterization when it comes to perception of sound. Complex is -somehow- a more enjoyed and natural behavior. Nevertheless, modern drum-machines don't explore beyond linear tempos that, if they stand *of course* as fundamental part of a musical piece, can also not be the only texture of rhythm in music. It is possible to superimpose over them different, more chaotic, rhythmic evolutions and exploring this and other concepts is the main purpose of this project. 
 
-Much automatization has been developed in the audio field with the possibility of following an exponential pattern. We anyway wandered more and thought about: what if we could develop a system that automates sound according to the laws of nature? 
+Much automatization has been developed in the audio field with the possibility of following many different patterns. We anyway wandered more and thought about: what if we could develop a system that automates sound according to the laws of nature? 
 
 From this idea the gravity drum machine concept was born.
 
@@ -179,6 +179,9 @@ Everything here works under rigorous physical laws. For a deeper understanding o
    In this case balls follow the pattern of a parabola in which the radius represents the distance from its focus. From this case can be computed a non-linear ***pow(x,2)*** behaviour.
    
    Velocity doesn't tend to zero in this case.
+   
+## Code architecture
+
 
 ## Authors' notes
 
