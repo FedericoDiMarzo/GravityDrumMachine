@@ -212,7 +212,7 @@ Finally we find two drop-down menus: one for selecting desired trajectory and on
    
    * Randomize checkbox: selecting will trigger every time a random note.
    
-   * Dynamic pitch checkbox: selecting will shift pitch according to distance from gravity ball.
+   * Dynamic pitch checkbox: selecting will shift pitch according to distance from the gravity ball.
    
    *Mono Synth*
    
@@ -229,6 +229,8 @@ Finally we find two drop-down menus: one for selecting desired trajectory and on
    * Filter envelope amount slider.
    
    * Detune slider.
+   
+   * Dynamic filter checkbox: selecting will change the cutoff frequency according to distance from the gravity ball.
    
 ### Copy-paste
 Hitting left and right arrow in the galaxy view will scroll through galaxy's systems, the selected one being surrounded by a green margin. Pressing 
@@ -251,7 +253,7 @@ pop-up that will appear.
    
 ### Motion parameters
 
-Selecting "**Motion Parameters**" from **main menu** will make appear a pop-up menu containing two sliders, giving the capacity of modifying **gravity** and 
+Selecting "**Motion Parameters**" from **main menu** will make appear a pop-up menu containing two sliders, giving the possibility to modify **gravity** and 
 **friction**'s intensity.
 
 "**G constant**" will modify **gravity**, while "**friction**" will modify **friction**.
@@ -362,7 +364,7 @@ K2 = mcm(N1, N2) / D2
 where N1/D1 and N2/D2 are two different time divisions, N3/D3 is the new subdivision to be compared to the next one.
 
 The resulting quarter note (*ie. "8n" in Tone.js wording*), is now the **tatum** of the step sequencer.
-For every independent sequence than, the *Metronome* calculate a multiplier *Mi*, that indicates the number of *tatum* needed to continue to the next step.
+For every independent sequence than, the *Metronome* calculate a multiplier *Mi*, that indicates the number of *tati* needed to continue to the next step.
 
 Mi = D / Di
 
@@ -380,7 +382,7 @@ All the process is handled by the **Screenshot** module.
 Every model's class, has a method to perform a *deep copy* of the object; this method is used by the *Screenshot* module to create a JSON file, that can be downloaded by the user.  
 This file, is used in the loading phase, to reconstruct all the objects that compose the model.
 
-The *Screenshot* module, is also used to perform a **copy/paste** operation between galaxies.
+The *Screenshot* module, is also used to perform a **copy/paste** operation between *systems*.
    
 * #### Sound modules
 We choose to use **Tone.js** to develop all the audio features of our application.
