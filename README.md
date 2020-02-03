@@ -393,7 +393,7 @@ Every *SoundModule* is associated with a ball, and it's directly connected to th
 In addiction each of them, is also connected with an **fx-bus**, that contains a *delay* and a *reverb* module through two gain nodes (acting as a send gain).
   
 <figure>
-  <img src = "resources/images/SoundModuleDiagram.png"  >
+  <img src = "resources/images/SoundM.png"  >
   <figcaption>-->Figure 9: 5/8 galaxy in a 3/4:5/8 universe<-- </figcaption>
 </figure>
 
