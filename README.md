@@ -6,6 +6,9 @@
 
 *February 2020*
 
+https://www.youtube.com/watch?v=fZK9mQ1Q3T8&feature=youtu.be
+https://federicodimarzo.github.io/GravityDrumMachine/
+
 
 ## Introduction
 Linearity is not the most enjoyed parameterization when it comes to perception of sound. *Complex* is -*somehow*- a more enjoyed and natural behavior. 
@@ -39,7 +42,7 @@ From these main ideas the gravity drum machine concept was born.
     
    *Polyrhythms*
     
-   * The software can simulate more than a galaxy at the same time, everyone associated with his own time signature. This will result in the capability of 
+   * The software can simulate more than a galaxy at the same time, each associated with his own time signature. This will result in the capability of 
    generating a universe sounding as every kind of **polyrhythm**, whith the possibility of the superposition of **linear** and **non-linear** behaviours with 
    the addition of moving balls by the user.
    
@@ -67,7 +70,7 @@ From these main ideas the gravity drum machine concept was born.
  
 * ### Limits and future features
    Along with the physical impossibility of subdividing time under certain orders, the "**tone.js**" library we used does not support infinitely dense time 
-   subdivision. Supporting polyrhythms leads to frequencies of the order from *pow(2,n)* to *pow(n,n)*, n being how many prime numbers are divisors of at 
+   subdivisions. Supporting polyrhythms leads to frequencies of the order from *pow(2,n)* to *pow(n,n)*, n being how many prime numbers are divisors of at 
    least one denominator, which tone magnifies 127 times by the "**tone.js**" library object used to handle tempo. Frequencies can become very high especially 
    when metric measure subdivisions (*i.e. denominator of metric signatures*) **are (or are divided by) lots of different prime numbers**, leading to very 
    small time subdivisions and possible errors.  
@@ -85,7 +88,7 @@ From these main ideas the gravity drum machine concept was born.
 </figure>
 
 When loaded the software will display a black screen in which the universe will be composed of a single **galaxy** associated with a 1/4 signature. Therefore 
-the newborn universe will be started containing one single galaxy which will herself contain one single system, this represented by the single green-margined 
+the newborn universe will be started containing one single galaxy which will itself contain one single system, this represented by the single green-margined 
 central square shown in the center of Figure 1. We will call in this text what is shown in Figure 1 and 2 "***Galaxy view***" to distinguish it from the 
 "***System view***", which usage will become clear later in this overview.
 
@@ -185,9 +188,9 @@ Selecting "**Sound FX settings**" from the **main menu** will spawn a pop-up con
 
 * *Reverb size*
 
-These will be parameters of a typical **FX Channel** to which sound signal can be sent from **Sound modules**, described in next section. 
-Channel is connected to **master channel**(final output od sound signal) and user will perceive superpositions of the two signals. Outputting effected **volume** 
-will be controlled via reverb and delay *send sliders* from **Sound Modules**.  
+These will be parameters of a shared **FX Channel Bus** to which sound signal can be sent from every **Sound module**, described in next section. 
+The *Fx Channel* is connected to **master channel** and user will perceive the superposition of the two signals. The send **gain** 
+will be controlled via reverb and delay *send sliders* from the **Sound Module's** setting menu.  
 
 ### Sound modules and their menu
 Either attracting and moving balls contain a **sound module**. This will contain a sound source along with the possibilities of 
