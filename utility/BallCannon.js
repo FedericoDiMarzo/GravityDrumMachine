@@ -1,4 +1,5 @@
-import MathTools from "./MathTools.js";
+import CanvasTools from "../utility/GravCanvasTools.js"
+import MathTools from "../utility/MathTools.js"
 import PhysicsConstants from "../utility/PhysicsCostants.js";
 
 /**
@@ -60,8 +61,7 @@ function getRadius(ball){
 
 //canvas diagonal /2
 function getMaxRadius(){
-    return MathTools.module([document.getElementById("gravity-canvas").width,
-        document.getElementById("gravity-canvas").height]) / 2;
+    return CanvasTools.getHalfDiagonal();
 }
 
 // Sets desired velocity, check correction parameter

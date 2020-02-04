@@ -1,4 +1,5 @@
 import SoundModule from "./SoundModule.js";
+import CanvasTools from "../utility/GravCanvasTools.js";
 
 class Sampler extends SoundModule {
 
@@ -61,11 +62,14 @@ class Sampler extends SoundModule {
 
     }
 
-    update(distance, initDistance, angle) {
+    update(distance, angle) {
         this.pitchShifterNode.wet.value = (this.dynamicPitchOn) ? 1 : 0;
 
         // pitch shifting based on distance
-        let val = ((distance / initDistance) - 0.5) * 12;
+        let val = (((distance / CanvasTools.getHalfDiagonal() > 1) ? 1 :
+            ((distance / CanvasTools.getHalfDiagonal() < -1) ? -1 :
+                (distance / CanvasTools.getHalfDiagonal())))
+            - 0.5) * 12;
         if (val) {
             this.pitchShifterNode.pitch = val;
         }

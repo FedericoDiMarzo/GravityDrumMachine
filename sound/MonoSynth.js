@@ -1,4 +1,5 @@
 import SoundModule from "./SoundModule.js";
+import CanvasTools from "../utility/GravCanvasTools.js";
 
 class MonoSynth extends SoundModule {
 
@@ -59,12 +60,15 @@ class MonoSynth extends SoundModule {
         this.updateSynthSettings();
     }
 
-    update(distance, initDistance, angle) {
+    update(distance, angle) {
         if (!this.dynamicFilterOn) {
             return;
         }
 
-        let val = distance / initDistance * 1000;
+        let val = ((distance / CanvasTools.getHalfDiagonal() > 1) ? 1 :
+            ((distance / CanvasTools.getHalfDiagonal() < -1) ? -1 :
+                (distance / CanvasTools.getHalfDiagonal())))
+            * 1000;
         this.module.filter.frequency.value = val;
     }
 

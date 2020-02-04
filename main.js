@@ -13,6 +13,7 @@ import BallController from "./controllers/BallController.js";
 import Controller from "./controllers/Controller.js";
 
 // http://0.0.0.0:8000/Documents/Universita%CC%80/Advanced%20Coding/project/GravityDrumMachine/index.html
+// http://localhost:8000/Documents/GitHub/GravityDrumMachine/index.html
 
 // setting up the drumGrid //
 let sequenceList = [new DrumSequence()];

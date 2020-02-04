@@ -1,6 +1,7 @@
 import Sampler from "../sound/Sampler.js";
 import SoundModule from "../sound/SoundModule.js";
 import MathTools from "../utility/MathTools.js";
+import CanvasTools from "../utility/GravCanvasTools.js"
 import PhysicsConstants from "../utility/PhysicsCostants.js";
 
 //import MathTools from "./MathTools";
@@ -101,8 +102,11 @@ class Ball {
 
         if (this.soundModule) {
             // panning
-            let maxPan = 200; // in px
-            let pan = this.x / maxPan;
+            let maxPan = CanvasTools.getHalfWidth(); // in px
+            let pan = ((this.x > maxPan) ? maxPan :
+                ((this.x < (-1 * maxPan)) ? (-1 * maxPan) :
+                (this.x)))
+                / maxPan;
             this.soundModule.setPan(pan);
         }
 
@@ -115,9 +119,8 @@ class Ball {
     updateSoundModule() {
         if (this.soundModule) {
             let distance = MathTools.module([this.x, this.y]);
-            let initDistance = MathTools.module([this.initX, this.initY]);
             let angle = Math.atan2(this.y, this.x);
-            this.soundModule.update(distance, initDistance, angle);
+            this.soundModule.update(distance, angle);
         }
     }
 
