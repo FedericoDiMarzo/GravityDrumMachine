@@ -15,12 +15,12 @@ Linearity is not the most enjoyed parameterization when it comes to perception o
 
 Even if modern drum-machines offer many different and inspiring tools devoted to rhythm, they seldom allow to explore sound generation in a *chaotic* 
 fashion.
-To create interesting and everchanging percussive textures, we think it could be particularly useful to superimpose different chaotic rhythmic elements 
+To create interesting and everchanging percussive textures, we thought it could be particularly useful to superimpose different chaotic rhythmic elements 
 to simpler patterns.
 
 The concept of unpredictability, has already been covered from hardware and software drum-machine manufactures in terms of conditional step triggering or 
 geometrical pseudo randomization.
-Anyway, we wandered more and thought about: *what if we could develop a system that automates sound morphing and generation, according to the laws of nature?* 
+Anyway, we wandered more and thought about: *what if we could develop a system that automates sound morphing and generation according to the laws of nature?* 
 
 From these main ideas the gravity drum machine concept was born.
 
@@ -54,15 +54,14 @@ From these main ideas the gravity drum machine concept was born.
      *Motion modulation*
      
     * Behaviours can be automatized following **gravity-motion equations patterns**, resulting in complex exponential behaviours. There will be a damped 
-    behaviour in colliding balls, which go subject also to a friction force. Non-colliding balls will not be subject to friction (having so periodic motion 
-    when orbiting). 
+    behaviour in colliding balls, which will go subject also to a friction force. Non-colliding balls will not be subject to friction. 
     
      *Double view*
      
     * There are two views in this drum machine, the first called **Galaxy view** which has a standard -*sequencer fashioned*- architecture. Inside the 
     **Galaxy view** there will be one or more systems (*e.g. three for a 3/4 galaxy, one for every step of the sequence*), and all of them will be 
-    accessible via the **System view**. Inside the **System view** gravity motion happens. Systems get triggered, starting and ending their sounds and 
-    motions, by the **metronome**.
+    accessible via the **System view**. Inside the **System view** gravity motion happens. Systems get triggered, starting and ending their sound and 
+    motion, by the **metronome**.
     
     *Dynamic forces*
          
@@ -105,10 +104,10 @@ beginning just by a central, gravity attracting, black ball.
 </figure>
 
 Moving towards the bottom right corner we find **play** and **stop** buttons, which can be toggled also by pressing the **spacebar**. **BPMs** are located 
-left of them; a pop-up will spawn when clicking  giving the possibility of changing them. On the bottom right we find the **galaxy name**, which can be reset 
+left of them; a pop-up will spawn when clicking  giving the possibility of changing them. On the bottom left we find the **galaxy name**, which can be reset 
 by clicking on it and typing the desired name in the pop-up that will appear.
 
-On the top-left we find just the name of the project and under that -*i.e. center left*- a thin **bar**. Usage of aforementioned **bar** will be clear when 
+On the top-left we find just the name of the software and under that -*i.e. center left*- a thin **bar**. Usage of aforementioned **bar** will be clear when 
 how to generate **polyrhythms** will be discussed.
 
 
@@ -120,13 +119,20 @@ We have so covered the **galaxy view** and move now forward towards the **system
   <img src = "resources/images/empty.PNG" width = "600" >
 </figure>
 
-Clicking on one of the systems the user will be projected into the **system view** which will appear populated initially only by the central gravity ball.
+Clicking on one of the systems user will be projected into the **system view** which will appear as a blank space populated initially only by the central gravity ball.
 
 We here find the same already described features of the **galaxy view**, with no thin bar displayed and with the software name substituted by a left-pointing 
 arrow, which gives the possibility of going back to galaxy view when clicked on.
 
-The central ball will emit a sound when the **metronome** steps on its system. Central balls can also be muted: when in pause, clicking on the central ball 
-will cause it to go white, representing the fact that the ball is now muted (but still attracting other balls). Clicking on it again will unmute it. Always 
+The central ball will emit a sound when the **metronome** triggers its system. Central balls can also be muted: when in pause, clicking on the central ball 
+will cause it to go empty, representing the fact that the ball is now muted (but still attracting other balls). Clicking on it again will unmute it. 
+
+<figure>
+  <figcaption>-->Figure 5: Muted gravity ball<-- </figcaption>
+  <img src = "resources/images/muted.PNG" width = "600" >
+</figure>
+
+Always 
 when in pause, clicking everywhere in the blank space will generate other balls, that will be attracted by the central ball, emitting a sound when colliding. 
 Clicking on them again will remove them, clicking and holding will give the possibility of dragging them around.
 
@@ -139,13 +145,7 @@ the **Sound Module** section.
   <img src = "resources/images/niceballs.PNG" width = "600" >
 </figure>
 
-You are now **Up&Going**! Open your software, set your rhythmic signature, place balls inside the system and hit play to watch them sound as the galaxy 
-evolves, or enjoy a more broad view stepping in the galaxy. Have fun! 
-
-<figure>
-  <figcaption>-->Figure 5: Muted gravity ball<-- </figcaption>
-  <img src = "resources/images/muted.PNG" width = "600" >
-</figure>
+You are now **Up&Going**! Open your software, set your rhythmic signature, place balls inside the system and hit play to watch them sound as systems evolve, or enjoy a more broad view stepping in the galaxy. Have fun! 
 
 ## Advanced usage
 
@@ -167,7 +167,7 @@ to do is to add other galaxies, set all of them as we already discussed previous
 
 To create a new galaxy we have to click on "***New Sequence***" from the menu (Fig.6). This will generate an entire new galaxy, superimposed  with the previous
  one. You will see the white bar in the middle left now having the possibility of moving through 2 different states, indexing the two currently existing 
- galaxies. every time we want to create a galaxy we have to iterate the process. States will increase by 1 every time a new galaxy gets created in the universe. 
+ galaxies. every time we want to create a galaxy we have to iterate the process. States will increase by 1 every time a new galaxy gets created in the universe and decrease by one when destroyed. *Currently there is no limit for the number of states*. 
 
 To remove a galaxy scroll to it and click "***Delete Sequence***" from the menu.
 
@@ -188,13 +188,13 @@ Selecting "**Sound FX settings**" from the **main menu** will spawn a pop-up con
 
 * *Reverb size*
 
-These will be parameters of a shared **FX Channel Bus** to which sound signal can be sent from every **Sound module**, described in next section. 
+These will be parameters of a shared **FX Channel Bus** to which sound signal can be sent from every **Sound module**, as described in next section. 
 The *Fx Channel* is connected to **master channel** and user will perceive the superposition of the two signals. The send **gain** 
-will be controlled via reverb and delay *send sliders* from the **Sound Module's** setting menu.  
+will be controlled via reverb and delay *send sliders* from the **Sound Module**'s setting menu.  
 
 ### Sound modules and their menu
 Either attracting and moving balls contain a **sound module**. This will contain a sound source along with the possibilities of 
-changing some of its parameters and automating them over time. Attack of the source will be triggered by **collisions** or **metronome**.
+changing some of its parameters and automating them over time. Attack of sources will be triggered by **collisions** or **metronome**.
 
 **Right clicking** on a ball will pop-up a menu which will give the possibility of changing ball's size
 (*we remind here that an increased size will not affect acceleration of the object*), triggered note, audio module contained 
@@ -301,13 +301,13 @@ the trajectory using old data which will result in an unpredictable motion.
    
 ##### Selectable trajectories notes:
 
-Every one aforementioned trajectory can be selected fom the drop-down trajectory menu. These will all have a random component, either in the angle or in
+Every aforementioned trajectory can be selected fom the drop-down trajectory menu. These will all have a random component, either in the angle or in
 initial velocity or both. We used a trick in order not to have collisions from every point in which a ball can be dropped: under certain radiuses elliptic
-orbit will decade in a circular one. This because motion's computations are made considering every ball as a point. When placing a ball too near the gravity one,
+orbit will decade in a circular one. This because motion's computations are made considering every ball as a single point in space. When placing a ball too near the gravity one,
 elliptic orbits will be computed going through the portion of space occupied by the gravity ball and this will result in a collision.
 
 This is not entirely resolvable if not by widening more the minor axis and compriming more the major one of the ellipsis, so in the end selecting elliptical motion
-being too close to the gravity center will make the trajectory collapse in a circular one, in order to avoid collisions.
+being too close to the gravity center will make the trajectory collapse in a circular one, in order to avoid collisions. 
 
 *The possibility of collision when not desired is minimum but there is a tight area in which this could still happen, under very unfortunate conditions.
 If so, try reducing ball's size in order to avoid it.*
@@ -319,38 +319,38 @@ The application is delivered to the user from the server as an index html page, 
 In this section the code architecture is depicted broadly, to introduce the main interrelated components that form the final product.
 
 * #### MVC structure
-Scalability was one of our main concern during development; we aimed for gradually add new components and options to our drum machine, avoiding unnecessary complexity in the code structure.
+Scalability was one of our main concern during development; we aimed to gradually add new components and options to our drum machine, avoiding unnecessary complexity in the code structure.
 
-To pursue this intention, we arranged our code in a MVC fashion, exploiting many useful tools and scheme proper of web apps.
+To pursue this intention, we arranged our code in a MVC fashion, exploiting many useful tools and proper schemes of web apps.
 
 Our **view** is defined in many *html* pages, that can be composed in a modular way, allowing us to create a single isolated file for every component of the product.   
 The graphical style has been enhanced with css style files.
 
-The **model** comprises many javascript modules, each one containing information about physical properties, or audio parameters.
+The **model** comprises many javascript modules, each one containing information about physical properties or audio parameters.
 
 All the logic in the application, that connects the user interaction in the view, with model updating, is delegated to two *controller* modules.
 To allow an automatic update of model properties, most html input tags have an *auto-update* class, used inside the controller to send input's values to a model object, that updates independently.
-This design choice offers a clean and easy way to add functionality to the application, without worrying about updating the controller's code every time.  
+This design choice offers a clean and easy way to add functionalities to the application without worrying about updating the controller's code every time.  
 
 * #### Graphical rendering
-The drum machine was designed to be fun to interact with and graphically appealing; to support these principles, we needed as much freedom as an web environment could offer.
-We used an **html canvas** component to draw our evolving universes, all the rendering process is delegated to the **GraphicRenderer** class.
+The drum machine was designed to be fun to interact with and graphically appealing; to support these principles, we needed as much freedom as a web environment could offer.
+We used an **html canvas** component to draw our evolving universes, all the rendering process delegated to the **GraphicRenderer** class.
 
-This class takes all the information needed for showing the evolution of the universe, directly from the model. The rendering is completely independent from the rate at which the model is updated.
+This class takes all the information needed for showing the evolution of the universe directly from the model. The rendering is completely independent from the rate at which the model is updated.
  
-The standard **window.requestAnimationFrame** function is used to exploit GPU acceleration, allowing for smooth animations, even on high CPU load.   
+The standard **window.requestAnimationFrame** function is used to exploit GPU acceleration, allowing for smooth animations even on high CPU load.   
 
 * #### Physical modeling
-Our project, started from a physical modeling of **gravity motion**, to which we added the possibility of **frictional forces**.
+Our project started from a physical modeling of **gravity motion**, to which we added the possibility of **frictional forces**.
 
-We hand-coded all the logic behind the simulation, without using external libraries, because we felt the need to design our model, over our very specific needs, allowing for a **better integration** and **performance optimization**.  
+We hand-coded all the logic behind the simulation, without using external libraries, because we felt the need to design our model over our very specific needs, allowing for a **better integration** and **performance optimization**.  
 
 * #### Step sequencing
 Aside from the *GraphicRenderer*, many other components needed some mechanism to handle regular time updates.
-To accomplish the task, we developed the class **Metronome**, that internally uses the component **Tone.Transport** (*a Tone.js component*) and a custom **event handling system**.
+To accomplish the task, we developed the **Metronome** class, that internally uses **Tone.Transport** (*a Tone.js component*) with a custom **event handling system**.
  
-Every drum-machine is based on the concept of rhythmic **step triggering**; some kind of *clock system* is used in order to synchronize the sequencing correctly.
-For our *Gravity Drum Machine* we took advantage of the clever design of the utility *Tone.Transport*, to implement a polyrhythmic step sequencer.
+Every drum-machine is based on the concept of rhythmic **step triggering**; a *clock system* designed in order to synchronize sequencing correctly.
+For our *Gravity Drum Machine* we took advantage of the clever design of the *Tone.Transport*  utility to implement a polyrhythmic step sequencer.
 
 *Tone.Transport* contains an event handling system based on a single *time signature* and *bpm*. 
 In order to allow this component to fire step events, considering the possible presence of polyrhythms, our *Metronome* class performs a computation of a common *time signature* in a recursive fashion:
@@ -363,7 +363,7 @@ K2 = mcm(N1, N2) / D2
 
 where N1/D1 and N2/D2 are two different time divisions, N3/D3 is the new subdivision to be compared to the next one.
 
-The resulting quarter note (*ie. "8n" in Tone.js wording*), is now the **tatum** of the step sequencer.
+The resulting quarter note (*ie. "4n" in Tone.js alphabet*), becomes the **tatum** of the step sequencer.
 For every independent sequence than, the *Metronome* calculate a multiplier *Mi*, that indicates the number of *tati* needed to continue to the next step.
 
 Mi = D / Di
@@ -374,23 +374,23 @@ The metronome fires a *state update* event every *5ms*, calling a method inside 
 
 Before every cycle, collisions checks between orbiting balls and the gravity center are performed, triggering a ball's *sound module* in case of impact.
 
-* #### Save and loading
+* #### Saving and loading
 The application offers the possibility to *save* the current universe's configuration locally in a file with a *.galaxy* extension. 
 These files can be *loaded* later, allowing the users to recall a previous state for further editing, or just to enjoy again their complex creations.
 
 All the process is handled by the **Screenshot** module. 
-Every model's class, has a method to perform a *deep copy* of the object; this method is used by the *Screenshot* module to create a JSON file, that can be downloaded by the user.  
+Every model's class, has a method to perform a *deep copy* of the object, used by the *Screenshot* module to create a JSON file, that can be downloaded by the user.  
 This file, is used in the loading phase, to reconstruct all the objects that compose the model.
 
-The *Screenshot* module, is also used to perform a **copy/paste** operation between *systems*.
+The *Screenshot* module is also used to perform a **copy/paste** operation between *systems*.
    
 * #### Sound modules
-We choose to use **Tone.js** to develop all the audio features of our application.
+We chose to use **Tone.js** to develop all the audio features of our application.
 In order to adapt the library to our codebase, we designed the interface **SoundModule**.
-Through this interface, we handled the problem of maintaining all the references between the connections of all the *audio nodes*.
+Through this interface, we handled the problem of maintaining all the references between the connections of all *audio nodes*.
 
-Every *SoundModule* is associated with a ball, and it's directly connected to the *master output*.
-In addiction each of them, is also connected with an **fx-bus**, that contains a *delay* and a *reverb* module through two gain nodes (acting as a send gain).
+Every *SoundModule* is associated with a ball and it's directly connected to the *master output*.
+In addiction, each of them is also connected with an **fx-bus** that contains a *delay* and a *reverb* module through two gain nodes (acting as a send gain).
   
 <figure>
   <img src = "resources/images/SoundM.png"  >
@@ -400,7 +400,7 @@ In addiction each of them, is also connected with an **fx-bus**, that contains a
 
 ## Authors' notes
 
-This project started as an examination and ended up in something we will further develop and expand; we believe its potential could be much bigger than this first version is exploiting, and being a perfect playground for sound/gravity-motion experiments. 
+This project started as an examination and ended up in something we will further develop and expand; believing its potential much bigger than the amount this first version is exploiting, and being a perfect playground for sound/gravity-motion experiments. 
 
 *Jacopo Piccirillo*
 
