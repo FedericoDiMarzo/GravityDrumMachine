@@ -349,11 +349,14 @@ class BallController {
         let shootingStyle = autoUpdatableFields.filter(nodeFilter("shooting-style-select"))[0].value;
 
 
+        // setting the size
         this.editedBall.size = parseFloat(size);
-        this.editedBall.note = note;
-        // this.editedBall.soundModule.setGain(parseFloat(gain));
-        // this.editedBall.soundModule.setDelaySend(parseFloat(delay));
-        // this.editedBall.soundModule.setReverbSend(parseFloat(reverb));
+
+        // validating the note before changes
+        let regex = new RegExp("^[CDEFGAB|cdefgab][1-5]$")
+        if (regex.test(note)) {
+            this.editedBall.note = note;
+        }
 
         // changing shooting style
         if (shootingStyle !== "no-value") {
