@@ -24,7 +24,7 @@ let BallCannon = {
             // v < absVMax for circular, elliptic and soft collisions
             absVMax: Math.sqrt(-2 * getPotentialEnergy(ball, gravityBall) / ball.getMass()),
             //inside [-theta, theta] range all vectors starting fom this point to gravity ball
-            theta: Math.atan2(gravityBall.size, MathTools.module([getRadius(ball), ball.size])),
+            theta: Math.atan2(gravityBall.size, MathTools.module([getRadius(ball) - ball.size, 0])),
             //intensity parameter for future development, now set being 0 at maxR and increasing getting close to gravity ball
             intensity: 1 - getRadius(ball) / getMaxRadius(),
             //computational parameter
