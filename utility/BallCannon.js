@@ -107,13 +107,12 @@ function randAngle(theta, rnd, ball){
 function collHard(ball, gravityBall, vars) {
     //ball is again subject to friction
     frictionBall(ball);
-    //exponential growth with intensity
     //computes module of velocity
-    let absv = vars.intensity * 0.99 * Math.sqrt(-2 * vars.potentialEnergy / ball.getMass());
+    let absv = 2 * Math.sqrt(-2 * vars.potentialEnergy / ball.getMass()) / (vars.intensity);
     //random angle between -theta and theta
-    let rand = Math.random() * 11;
+    let rand = Math.random();
     let inv = [1, -1];
-    let angle = (((Math.random() * 2)<1) ? inv[0] : inv[1]) * vars.theta * (1 - 1 / 10) * rand / 10;
+    let angle = (((Math.random() * 2)<1) ? inv[0] : inv[1]) * vars.theta * (1 - 1 / 10) * rand;
     //velocity in polar frame
     //sure collision having velocity angle with respect to radius between [-theta : theta] range
     let vpol = [-1 * absv * Math.cos(angle), -1 * absv * Math.sin(angle)];
@@ -126,12 +125,12 @@ function collHard(ball, gravityBall, vars) {
 function collSoft(ball, gravityBall, vars) {
     //ball is again subject to friction
     frictionBall(ball);
-    //computes kinetic energy
-    let kinEnergy = vars.potentialEnergy / 2 - vars.potentialEnergy; //a.k.a. -vars.potentialEnergy / 2
-    //linear growth
-    let absv = vars.intensity * 0.99 * Math.sqrt(2 * kinEnergy / ball.getMass());
     //wide angle
-    let gamma = (Math.PI * (Math.random() * 1000)) / 1000 - Math.PI / 2;
+    let gamma = Math.PI * Math.random() - Math.PI / 2;
+    //computes kinetic energy
+    let kinEnergy = -1 * vars.potentialEnergy / 2;
+    //linear growth, gamma / 2 * PI reduces velocity for wide angles --> early collisions
+    let absv = vars.intensity * (1 - gamma /(2 * Math.PI)) * 0.99 * Math.sqrt(2 * kinEnergy / ball.getMass());
     //velocity in polar frame
     let vpol = [-1 * absv * Math.cos(gamma), -1 * absv * Math.sin(gamma)];
 
@@ -193,7 +192,7 @@ function circular(ball, gravityBall, vars){
     freeBall(ball);
     //computes energy
     let kinEnergy = -1 * vars.potentialEnergy / 2;
-    //computes module of velocity
+    //computes module of velocity, 3.5 empiric correction
     let absv = 3.5 * Math.sqrt(2 * kinEnergy / ball.getMass());
     //random clockwise/counter-clockwise motion
     let inv = [1, -1];
