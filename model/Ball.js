@@ -2,7 +2,7 @@ import Sampler from "../sound/Sampler.js";
 import SoundModule from "../sound/SoundModule.js";
 import MathTools from "../utility/MathTools.js";
 import PhysicsConstants from "../utility/PhysicsCostants.js";
-import CanvasTools from "../utility/CanvasTools";
+import CanvasTools from "../utility/CanvasTools.js";
 
 //import MathTools from "./MathTools";
 

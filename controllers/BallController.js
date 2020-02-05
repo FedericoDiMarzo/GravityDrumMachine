@@ -206,7 +206,7 @@ class BallController {
                     let soundModuleSelect = document.querySelector("#audio-module-select");
                     let audioModuleContainer = document.querySelector("#audio-module-container");
                     let autoUpdatableFields = document.querySelectorAll(".auto-update");
-                    let shootingStyleContainer = document.querySelectorAll(".shooting-style-container");
+                    let shootingStyleContainer = document.querySelector(".shooting-style-container");
 
                     // every update on the view will be reflected on the model
                     autoUpdatableFields.forEach(field => {
