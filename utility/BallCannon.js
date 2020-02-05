@@ -1,4 +1,5 @@
-import MathTools from "./MathTools.js";
+import CanvasTools from "./CanvasTools.js"
+import MathTools from "../utility/MathTools.js"
 import PhysicsConstants from "../utility/PhysicsCostants.js";
 
 /**
@@ -60,8 +61,7 @@ function getRadius(ball){
 
 //canvas diagonal /2
 function getMaxRadius(){
-    return MathTools.module([document.getElementById("gravity-canvas").width,
-        document.getElementById("gravity-canvas").height]) / 2;
+    return CanvasTools.getHalfDiagonal();
 }
 
 // Sets desired velocity, check correction parameter
@@ -107,13 +107,12 @@ function randAngle(theta, rnd, ball){
 function collHard(ball, gravityBall, vars) {
     //ball is again subject to friction
     frictionBall(ball);
-    //exponential growth with intensity
     //computes module of velocity
-    let absv = vars.intensity * 0.99 * Math.sqrt(-2 * vars.potentialEnergy / ball.getMass());
+    let absv = 2 * Math.sqrt(-2 * vars.potentialEnergy / ball.getMass()) / (vars.intensity + 0.7);
     //random angle between -theta and theta
-    let rand = Math.random() * 11;
+    let rand = Math.random();
     let inv = [1, -1];
-    let angle = (((Math.random() * 2)<1) ? inv[0] : inv[1]) * vars.theta * (1 - 1 / 10) * rand / 10;
+    let angle = (((Math.random() * 2)<1) ? inv[0] : inv[1]) * vars.theta * (1 - 1 / 10) * rand;
     //velocity in polar frame
     //sure collision having velocity angle with respect to radius between [-theta : theta] range
     let vpol = [-1 * absv * Math.cos(angle), -1 * absv * Math.sin(angle)];
@@ -126,12 +125,14 @@ function collHard(ball, gravityBall, vars) {
 function collSoft(ball, gravityBall, vars) {
     //ball is again subject to friction
     frictionBall(ball);
-    //computes kinetic energy
-    let kinEnergy = vars.potentialEnergy / 2 - vars.potentialEnergy; //a.k.a. -vars.potentialEnergy / 2
-    //linear growth
-    let absv = vars.intensity * 0.99 * Math.sqrt(2 * kinEnergy / ball.getMass());
     //wide angle
-    let gamma = (Math.PI * (Math.random() * 1000)) / 1000 - Math.PI / 2;
+    let gamma = Math.PI * Math.random() - Math.PI / 2;
+    //computes kinetic energy
+    let kinEnergy = -1 * vars.potentialEnergy / 4;
+    //linear growth, angular correction reduces velocity for wide angles --> early collisions
+    let absv = vars.intensity * ((1.5 - Math.abs(gamma) / Math.PI < 1) ? (1.5 - Math.abs(gamma) / Math.PI < 1) : 1)
+        * 0.99 * Math.sqrt(2 * kinEnergy / ball.getMass());
+    absv = (absv > (0.9 * vars.absVMax)) ? (0.9 * vars.absVMax) : absv;
     //velocity in polar frame
     let vpol = [-1 * absv * Math.cos(gamma), -1 * absv * Math.sin(gamma)];
 
@@ -175,7 +176,7 @@ function ellipsis(ball, gravityBall, vars) {
         //random clockwise/counter-clockwise motion
         let gamma = (((Math.random() * 2) < 1) ? inv[0] : inv[1]) * Math.PI / 2;
         //computes module of velocity
-        let absv = Math.sqrt(2 * (vars.intensity / 3 + 2 / 3) * vars.kinMaxClosedTraj * vars.absr / (gravityBall.size * ball.getMass()));
+        let absv = Math.sqrt(2 * (vars.intensity * 0.9) * vars.kinMaxClosedTraj * vars.absr / (gravityBall.size * ball.getMass()));
         //velocity in polar frame
         let vpol = [-1 * absv * Math.cos(gamma), -1 * absv * Math.sin(gamma)];
 
@@ -193,7 +194,7 @@ function circular(ball, gravityBall, vars){
     freeBall(ball);
     //computes energy
     let kinEnergy = -1 * vars.potentialEnergy / 2;
-    //computes module of velocity
+    //computes module of velocity, 3.5 empiric correction
     let absv = 3.5 * Math.sqrt(2 * kinEnergy / ball.getMass());
     //random clockwise/counter-clockwise motion
     let inv = [1, -1];

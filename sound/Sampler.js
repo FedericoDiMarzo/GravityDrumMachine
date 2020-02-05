@@ -62,6 +62,7 @@ class Sampler extends SoundModule {
     }
 
     update(distance, initDistance, angle) {
+        if (distance > initDistance) return;
         this.pitchShifterNode.wet.value = (this.dynamicPitchOn) ? 1 : 0;
 
         // pitch shifting based on distance

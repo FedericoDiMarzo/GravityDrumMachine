@@ -60,7 +60,7 @@ class MonoSynth extends SoundModule {
     }
 
     update(distance, initDistance, angle) {
-        if (!this.dynamicFilterOn) {
+        if (!this.dynamicFilterOn || distance > initDistance) {
             return;
         }
 
