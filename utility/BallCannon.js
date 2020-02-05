@@ -108,7 +108,7 @@ function collHard(ball, gravityBall, vars) {
     //ball is again subject to friction
     frictionBall(ball);
     //computes module of velocity
-    let absv = 2 * Math.sqrt(-2 * vars.potentialEnergy / ball.getMass()) / (vars.intensity);
+    let absv = 2 * Math.sqrt(-2 * vars.potentialEnergy / ball.getMass()) / (vars.intensity + 0.7);
     //random angle between -theta and theta
     let rand = Math.random();
     let inv = [1, -1];
@@ -128,9 +128,11 @@ function collSoft(ball, gravityBall, vars) {
     //wide angle
     let gamma = Math.PI * Math.random() - Math.PI / 2;
     //computes kinetic energy
-    let kinEnergy = -1 * vars.potentialEnergy / 2;
-    //linear growth, gamma / 2 * PI reduces velocity for wide angles --> early collisions
-    let absv = vars.intensity * (1 - gamma /(2 * Math.PI)) * 0.99 * Math.sqrt(2 * kinEnergy / ball.getMass());
+    let kinEnergy = -1 * vars.potentialEnergy / 4;
+    //linear growth, angular correction reduces velocity for wide angles --> early collisions
+    let absv = vars.intensity * ((1.5 - Math.abs(gamma) / Math.PI < 1) ? (1.5 - Math.abs(gamma) / Math.PI < 1) : 1)
+        * 0.99 * Math.sqrt(2 * kinEnergy / ball.getMass());
+    absv = (absv > (0.9 * vars.absVMax)) ? (0.9 * vars.absVMax) : absv;
     //velocity in polar frame
     let vpol = [-1 * absv * Math.cos(gamma), -1 * absv * Math.sin(gamma)];
 
@@ -174,7 +176,7 @@ function ellipsis(ball, gravityBall, vars) {
         //random clockwise/counter-clockwise motion
         let gamma = (((Math.random() * 2) < 1) ? inv[0] : inv[1]) * Math.PI / 2;
         //computes module of velocity
-        let absv = Math.sqrt(2 * (vars.intensity / 3 + 2 / 3) * vars.kinMaxClosedTraj * vars.absr / (gravityBall.size * ball.getMass()));
+        let absv = Math.sqrt(2 * (vars.intensity * 0.9) * vars.kinMaxClosedTraj * vars.absr / (gravityBall.size * ball.getMass()));
         //velocity in polar frame
         let vpol = [-1 * absv * Math.cos(gamma), -1 * absv * Math.sin(gamma)];
 
