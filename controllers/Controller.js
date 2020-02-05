@@ -72,12 +72,6 @@ class Controller {
         // Key Events
         document.body.onkeydown = (e) => {
 
-            // Spacebar
-            if (e.keyCode === 32 && !this.alertOn && !this.sandwichMenuOn) {
-                this.metronome.toggle();
-                this.updatePlayingState();
-            }
-
             // Enter
             if (e.keyCode === 13 && this.alertOn) {
                 // confirm alert
@@ -94,32 +88,42 @@ class Controller {
                 this.closeSandwichMenu();
             }
 
+            // from now on, every key interaction is suspended if
+            // there's an alert or the side-menu
+            if (this.alertOn || this.sandwichMenuOn) return;
+
             // Down arrow
-            if (e.keyCode === 40 && !this.alertOn && !this.sandwichMenuOn) {
+            if (e.keyCode === 40) {
                 this.changeRow(this.sequenceIndex + 1);
             }
 
+            // Spacebar
+            if (e.keyCode === 32) {
+                this.metronome.toggle();
+                this.updatePlayingState();
+            }
+
             // Up arrow
-            if (e.keyCode === 38 && !this.alertOn && !this.sandwichMenuOn) {
+            if (e.keyCode === 38) {
                 this.changeRow(this.sequenceIndex - 1);
             }
 
             // Right arrow
             if (e.keyCode === 39) {
-                if (!this.metronome.playing) {
+                if (!this.metronome.playing && !this.alertOn) {
                     this.grid.sequenceList[this.sequenceIndex].changeIndex(this.grid.sequenceList[this.sequenceIndex].index + 1);
                 }
             }
 
             // Left arrow
             if (e.keyCode === 37) {
-                if (!this.metronome.playing) {
+                if (!this.metronome.playing && !this.alertOn) {
                     this.grid.sequenceList[this.sequenceIndex].changeIndex(this.grid.sequenceList[this.sequenceIndex].index - 1);
                 }
             }
 
             // Tab key
-            if (e.keyCode === 9 && !this.alertOn && !this.sandwichMenuOn) {
+            if (e.keyCode === 9) {
                 e.preventDefault();
                 let animation = ["animated", "jackInTheBox", "faster"];
                 this.container.classList.add(...animation);
@@ -474,8 +478,9 @@ class Controller {
                         if (!inputNum.value ||
                             !inputDen.value ||
                             !inputNum.checkValidity() ||
-                            !inputDen.checkValidity())
+                            !inputDen.checkValidity()) {
                             return;
+                        }
 
                         let signatureTxt = inputNum.value + "/" + inputDen.value;
                         let signature = MathTools.string2Fraction(signatureTxt);
@@ -719,18 +724,16 @@ class Controller {
                     let confirmButton = document.querySelector(".btn-press-ok");
 
                     // loading values
-                    let defaultG = 6.67e-8;
-                    let defaultFriction = 0.2e-2;
-                    gInput.value = PhysicsConstants.g / defaultG;
-                    frictionInput.value = PhysicsConstants.friction / defaultFriction;
+                    gInput.value = PhysicsConstants.g / PhysicsConstants.defaultG;
+                    frictionInput.value = PhysicsConstants.friction / PhysicsConstants.defaultFriction;
 
                     // closing alert
                     cancelButton.onclick = this.closeAlert.bind(this);
 
                     // confirm edits
                     this.alertConfirmFunction = e => {
-                        PhysicsConstants.g = defaultG * gInput.value;
-                        PhysicsConstants.friction = defaultFriction * frictionInput.value;
+                        PhysicsConstants.g = PhysicsConstants.defaultG * gInput.value;
+                        PhysicsConstants.friction = PhysicsConstants.defaultFriction * frictionInput.value;
                         this.closeAlert();
                     };
                     confirmButton.onclick = this.alertConfirmFunction.bind(this);

@@ -2,6 +2,7 @@ import Sampler from "../sound/Sampler.js";
 import SoundModule from "../sound/SoundModule.js";
 import MathTools from "../utility/MathTools.js";
 import PhysicsConstants from "../utility/PhysicsCostants.js";
+import CanvasTools from "../utility/CanvasTools";
 
 //import MathTools from "./MathTools";
 
@@ -101,7 +102,7 @@ class Ball {
 
         if (this.soundModule) {
             // panning
-            let maxPan = 200; // in px
+            let maxPan = CanvasTools.getHalfWidth() * 0.7; // in px
             let pan = this.x / maxPan;
             this.soundModule.setPan(pan);
         }

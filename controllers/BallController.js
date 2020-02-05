@@ -206,11 +206,17 @@ class BallController {
                     let soundModuleSelect = document.querySelector("#audio-module-select");
                     let audioModuleContainer = document.querySelector("#audio-module-container");
                     let autoUpdatableFields = document.querySelectorAll(".auto-update");
+                    let shootingStyleContainer = document.querySelectorAll(".shooting-style-container");
 
                     // every update on the view will be reflected on the model
                     autoUpdatableFields.forEach(field => {
                         field.onchange = this.updateModel.bind(this);
                     });
+
+                    // hiding shooting-style for gGenter
+                    if (this.editedBall instanceof GravityBall) {
+                        shootingStyleContainer.style.display = "none";
+                    }
 
                     // current values
                     sizeInput.value = this.editedBall.size;
@@ -278,6 +284,13 @@ class BallController {
                                         let filterCutoffInput = document.querySelector("#filter-cutoff-input");
                                         let filterEnvAmountInput = document.querySelector("#filter-env-input");
                                         let detune = document.querySelector("#detune-input");
+                                        let dynamicFilterInput = document.querySelector("#dynamic-filter-input");
+                                        let dynamicFilterContainer = document.querySelector(".dynamic-filter-container");
+
+                                        // G-Balls can't have dynamic filter input
+                                        if (this.editedBall instanceof GravityBall) {
+                                            dynamicFilterContainer.style.display = "none";
+                                        }
 
                                         ampAttackInput.value = this.editedBall.soundModule.ampAttack;
                                         ampReleaseInput.value = this.editedBall.soundModule.ampRelease;
@@ -286,6 +299,7 @@ class BallController {
                                         filterCutoffInput.value = this.editedBall.soundModule.filterCutoff;
                                         filterEnvAmountInput.value = this.editedBall.soundModule.filterEnvAmount;
                                         detune.value = this.editedBall.soundModule.detune;
+                                        dynamicFilterInput.value = this.editedBall.soundModule.dynamicFilterOn;
 
                                         break;
                                 }
@@ -349,11 +363,14 @@ class BallController {
         let shootingStyle = autoUpdatableFields.filter(nodeFilter("shooting-style-select"))[0].value;
 
 
+        // setting the size
         this.editedBall.size = parseFloat(size);
-        this.editedBall.note = note;
-        // this.editedBall.soundModule.setGain(parseFloat(gain));
-        // this.editedBall.soundModule.setDelaySend(parseFloat(delay));
-        // this.editedBall.soundModule.setReverbSend(parseFloat(reverb));
+
+        // validating the note before changes
+        let regex = new RegExp("^[CDEFGAB|cdefgab][1-5]$")
+        if (regex.test(note)) {
+            this.editedBall.note = note;
+        }
 
         // changing shooting style
         if (shootingStyle !== "no-value") {
