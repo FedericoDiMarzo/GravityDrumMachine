@@ -367,7 +367,7 @@ class BallController {
         this.editedBall.size = parseFloat(size);
 
         // validating the note before changes
-        let regex = new RegExp("^[CDEFGAB|cdefgab][1-5]$")
+        let regex = new RegExp("^[CDEFGAB|cdefgab]#?[1-5]$")
         if (regex.test(note)) {
             this.editedBall.note = note;
         }
