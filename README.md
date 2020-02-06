@@ -286,7 +286,7 @@ Automations can be taken in this software as the temporal evolution of coordinat
    
    *  Energy will be below amount needed to orbit, so ball will collide more than one time. Initial velocity will have a random-generated angle between (-PI, PI) with respect to radius direction, since Energy balance allows us to be sure that shooting in every direction will make the ball collide, if it has enough time to do that (*if tempo is too fast it could happen that system resets its motion before ball actually falls*). This will result in lots of possibilities of trajectories and peculiar automations.
    
-[**All aforementioned trajectories will resent of friction and result in a damped oscillation behaviour; belove non-colliding orbits are described, which will not resent of friction**]
+**All aforementioned trajectories will resent of friction and result in a damped oscillation behaviour; belove non-colliding orbits are described, which will not resent of friction**.
    
 * #### Circular motion 
    Both x and y coordinates follow a periodic sine-cosine behaviour. From x and y coordinates we can get a **sine wave** behaviour (**y**) and a 
@@ -311,7 +311,7 @@ Automations can be taken in this software as the temporal evolution of coordinat
    In this case balls follow the pattern of a parabola in which the radius represents the distance from its focus. From this case can be computed a non-linear 
    ***pow(x,2)*** behaviour.
    
-[**Excepting collision hard, initial velocities are computed with inversely proportionality with respect to the radius, so velocity will be higher when near and slower when far. The opposite stands for collision hard**].
+**Excepting collision hard, initial velocities are computed with inversely proportionality with respect to the radius, so velocity will be higher when near and slower when far. The opposite stands for collision hard**.
 
 *In future we will implement the possibility for the user to decide velocity magnitude himself*.
    
