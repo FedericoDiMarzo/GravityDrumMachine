@@ -278,11 +278,11 @@ Automations can be taken in this software as the temporal evolution of coordinat
    
    *  Ball will have zero initial velocity and simply fall towards the gravity ball.
    
-   *Collision hard (coll-hard in sound module menu)+
+   *Collision hard (coll-hard in sound module menu)*
    
    *  Energy will be above zero in this case and ball will be shooted with high velocity pointing to gravity ball, colliding only one time and then moving away without falling again (since Energy > 0).
    
-   *Collision soft (coll-soft in sound module menu)+
+   *Collision soft (coll-soft in sound module menu)*
    
    *  Energy will be below amount needed to orbit, so ball will collide more than one time. Initial velocity will have a random-generated angle between (-PI, PI) with respect to radius direction, since Energy balance allows us to be sure that shooting in every direction will make the ball collide, if it has enough time to do that (*if tempo is too fast it could happen that system resets its motion before ball actually falls*). This will result in lots of possibilities of trajectories and peculiar automations.
    
