@@ -18,7 +18,7 @@ fashion.
 To create interesting and everchanging percussive textures, we thought it could be particularly useful to superimpose different chaotic rhythmic elements 
 to simpler patterns.
 
-The concept of unpredictability, has already been covered from hardware and software drum-machine manufactures in terms of conditional step triggering or 
+The concept of unpredictability has already been covered from hardware and software drum-machine manufactures in terms of conditional step triggering or 
 geometrical pseudo randomization.
 Anyway, we wandered more and thought about: *what if we could develop a system that automates sound morphing and generation according to the laws of nature?* 
 
@@ -53,8 +53,8 @@ From these main ideas the gravity drum machine concept was born.
     
      *Motion modulation*
      
-    * Behaviours can be automatized following **gravity-motion equations patterns**, resulting in complex exponential behaviours. There will be a damped 
-    behaviour in colliding balls, which will go subject also to a friction force. Non-colliding balls will not be subject to friction. 
+    * Behaviours can be automated following **gravity-motion equations patterns**, resulting in complex exponential behaviours. There will be damped 
+    behaviours in colliding balls, which will go subject also to a friction force. Non-colliding balls will not be subject to friction. 
     
      *Double view*
      
@@ -73,6 +73,8 @@ From these main ideas the gravity drum machine concept was born.
    least one denominator, which tone magnifies 127 times by the "**tone.js**" library object used to handle tempo. Frequencies can become very high especially 
    when metric measure subdivisions (*i.e. denominator of metric signatures*) **are (or are divided by) lots of different prime numbers**, leading to very 
    small time subdivisions and possible errors.  
+   
+   *Hardware limits warning*: if one implements particularly complex sound patterns using this software having a not very powerful hardware on his machine, application can lag, especially if Operating System implements **GPU audio processing**. If so, try reducing size of the window in which application is loaded to avoid lagging. **If one has powerful hardware this is not an issue**.
  
    We are currently focused on doppler-effect features, enhancement of modulation possibilities, harmonic and melodic sound pattern generation and overall 
    interface improvement.
@@ -95,7 +97,7 @@ On the top right corner we find an icon that will show a menu when clicked, givi
 saved one, along with the option of **creating** or destroying **sequences** (*i.e. **galaxies***). 
 
 Under that icon we find the rhythmic metric associated with the newborn **galaxy**, which can be modified by clicking on it: a popup will appear in which the 
-metric will be reset. By doing that new systems will be spawned (or canceled if the numerator of the metric gets decreased), all of them composed in the 
+metric can be reset. By doing that new systems will be spawned (or canceled if the numerator of the metric gets decreased), all of them composed in the 
 beginning just by a central, gravity attracting, black ball.
 
 <figure>
@@ -166,8 +168,8 @@ to do is to add other galaxies, set all of them as we already discussed previous
 </figure>
 
 To create a new galaxy we have to click on "***New Sequence***" from the menu (Fig.6). This will generate an entire new galaxy, superimposed  with the previous
- one. You will see the white bar in the middle left now having the possibility of moving through 2 different states, indexing the two currently existing 
- galaxies. every time we want to create a galaxy we have to iterate the process. States will increase by 1 every time a new galaxy gets created in the universe and decrease by one when destroyed. *Currently there is no limit for the number of states*. 
+ one. We will see the white bar in the middle left now having the possibility of moving through 2 different states, indexing the two currently existing 
+ galaxies. Every time we want to create a galaxy we have to iterate the process. States will increase by one every time a new galaxy gets created in the universe and decrease by one when destroyed. *Currently there is no limit for the number of states*. 
 
 To remove a galaxy scroll to it and click "***Delete Sequence***" from the menu.
 
@@ -263,12 +265,28 @@ Selecting "**Motion Parameters**" from **main menu** will make appear a pop-up m
 Everything here works under rigorous physical laws. For a deeper understanding of the automation possibility of this software it is worth having a look at its 
 physics. We will enumerate the different possible types of motion and what kind of automation one can get from it.
 
-**All** automations are taken in this software as the temporal evolution of coordinates and velocities of the objects. The graph **coordinate(velocity)-time**
+Automations can be taken in this software as the temporal evolution of coordinates and velocities of the objects. The graph **coordinate(velocity)-time**
  will correspond to the **envelope** obtained.
 
-* #### Colliding Motion
+* #### Colliding Motions
    This motion will be an *harmonic damped oscillator*. An exact **harmonic damped envelope** can be found in the time-evolution of the radius of a colliding 
    ball.
+   
+   We currently implemented three options for collisions:
+   
+   *Free fall*
+   
+   *  Ball will have zero initial velocity and simply fall towards the gravity ball.
+   
+   *Collision hard (coll-hard in sound module menu)+
+   
+   *  Energy will be above zero in this case and ball will be shooted with high velocity pointing to gravity ball, colliding only one time and then moving away without falling again (since Energy > 0).
+   
+   *Collision soft (coll-soft in sound module menu)+
+   
+   *  Energy will be below amount needed to orbit, so ball will collide more than one time. Initial velocity will have a random-generated angle between (-PI, PI) with respect to radius direction, since Energy balance allows us to be sure that shooting in every direction will make the ball collide, if it has enough time to do that (*if tempo is too fast it could happen that system resets its motion before ball actually falls*). This will result in lots of possibilities of trajectories and peculiar automations.
+   
+[**All aforementioned trajectories will resent of friction and result in a damped oscillation behaviour; belove non-colliding orbits are described, which will not resent of friction**]
    
 * #### Circular motion 
    Both x and y coordinates follow a periodic sine-cosine behaviour. From x and y coordinates we can get a **sine wave** behaviour (**y**) and a 
@@ -292,6 +310,10 @@ physics. We will enumerate the different possible types of motion and what kind 
 * #### Parabolic motion
    In this case balls follow the pattern of a parabola in which the radius represents the distance from its focus. From this case can be computed a non-linear 
    ***pow(x,2)*** behaviour.
+   
+[**Excepting collision hard, initial velocities are computed with inversely proportionality with respect to the radius, so velocity will be higher when near and slower when far. The opposite stands for collision hard**].
+
+*In future we will implement the possibility for the user to decide velocity magnitude himself*.
    
 ##### Dynamic forces notes:
 
