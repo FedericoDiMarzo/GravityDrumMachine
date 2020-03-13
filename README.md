@@ -6,7 +6,7 @@
 
 *February 2020*
 
-https://www.youtube.com/watch?v=fZK9mQ1Q3T8&feature=youtu.be
+https://youtu.be/1Tvgzuj7Sq0
 https://federicodimarzo.github.io/GravityDrumMachine/
 https://github.com/FedericoDiMarzo/GravityDrumMachine/tree/master/Presets
 
