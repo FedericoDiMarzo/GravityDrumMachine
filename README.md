@@ -387,7 +387,7 @@ K2 = mcm(N1, N2) / D2
 where N1/D1 and N2/D2 are two different time divisions, N3/D3 is the new subdivision to be compared to the next one.
 
 The resulting quarter note (*ie. "4n" in Tone.js alphabet*), becomes the **tatum** of the step sequencer.
-For every independent sequence than, the *Metronome* calculate a multiplier *Mi*, that indicates the number of *tati* needed to continue to the next step.
+For every independent sequence than, the *Metronome* calculate a multiplier *Mi*, that indicates the number of *tatum* needed to continue to the next step.
 
 Mi = D / Di
 
